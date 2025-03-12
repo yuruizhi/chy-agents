@@ -1,8 +1,10 @@
 package com.chy.agents.alibaba.client;
 
-import org.springframework.ai.alibaba.dashscope.client.Generation;
+
+import com.alibaba.dashscope.aigc.generation.Generation;
 import com.alibaba.dashscope.aigc.generation.GenerationResult;
-import org.springframework.ai.chat.ChatClient;
+
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.Prompt;
 
 public class AlibabaChatClientAdapter implements ChatClient {
@@ -19,7 +21,7 @@ public class AlibabaChatClientAdapter implements ChatClient {
         return result.getOutput().getText();
     }
     
-    private com.alibaba.dashscope.aigc.generation.Prompt convertPrompt(Prompt prompt) {
+    private Prompt convertPrompt(Prompt prompt) {
         // 实现Prompt转换逻辑
     }
 } 

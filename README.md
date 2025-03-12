@@ -4,6 +4,7 @@
 
 ## 项目结构
 
+```
 chy-agents
 ├── chy-agents-chat - 聊天功能模块
 ├── chy-agents-image - 图像处理模块
@@ -11,7 +12,6 @@ chy-agents
 ├── chy-agents-common - 公共工具类模块
 ├── chy-agents-core - 核心业务逻辑模块
 └── chy-agents-rest - REST API接口模块
-
 ```
 
 ## 技术栈

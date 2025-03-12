@@ -34,4 +34,11 @@ build/
 
 .mvn/
 
+### .env files contain local environment variables ###
+.env
 
+# Maven ignore
+.flattened-pom.xml
+
+# node_modules
+**/node_modules

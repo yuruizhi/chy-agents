@@ -3,7 +3,7 @@ package com.chy.agents.core.agent;
 import com.chy.agents.core.agent.Agent.Tool;
 import com.chy.agents.core.agent.Agent.Memory;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.ai.chat.ChatClient;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
@@ -41,7 +41,10 @@ public class SimpleAgent implements Agent {
     }
     
     @Override
-    public String execute(String input) {
+    public String execute(String input, String modelProvider) {
+        ChatClient client = modelRouter.selectClient(modelProvider);
+        // 使用指定provider的client执行
+        
         // 准备所有消息，包括记忆和当前输入
         // 获取最近10条消息
         List<Message> messages = new ArrayList<>(memory.get(10));
@@ -55,7 +58,7 @@ public class SimpleAgent implements Agent {
         
         // 调用LLM
         Prompt prompt = new Prompt(messages);
-        String response = chatClient.call(prompt).getResult().getOutput().getContent();
+        String response = client.call(prompt).getResult().getOutput().getContent();
         
         // 解析响应中的工具调用
         if (containsToolCall(response)) {
@@ -181,54 +184,5 @@ public class SimpleAgent implements Agent {
     public void setMemory(Memory memory) {
         this.memory = memory;
     }
-    
-    /**
-     * 简单的内存实现
-     *
-     * @author YuRuizhi
-     * @date 2025/3/12
-     */
-    private static class SimpleMemory implements Memory {
-        private final List<Message> messages = new ArrayList<>();
-        
-        @Override
-        public void add(Message message) {
-            messages.add(message);
-        }
-        
-        @Override
-        public List<Message> get(int limit) {
-            int start = Math.max(0, messages.size() - limit);
-            return messages.subList(start, messages.size());
-        }
-        
-        @Override
-        public void clear() {
-            messages.clear();
-        }
-    }
-    
-    /**
-     * 简单的助手消息实现
-     *
-     * @author YuRuizhi
-     * @date 2025/3/12
-     */
-    private static class SimpleAssistantMessage implements Message {
-        private final String content;
-        
-        public SimpleAssistantMessage(String content) {
-            this.content = content;
-        }
-        
-        @Override
-        public String getContent() {
-            return content;
-        }
-        
-        @Override
-        public String getRole() {
-            return "assistant";
-        }
-    }
+
 } 

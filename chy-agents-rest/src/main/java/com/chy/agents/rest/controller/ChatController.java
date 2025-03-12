@@ -3,7 +3,6 @@ package com.chy.agents.rest.controller;
 import com.chy.agents.chat.service.ChatService;
 import jakarta.annotation.Resource;
 import org.springframework.ai.chat.messages.Message;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

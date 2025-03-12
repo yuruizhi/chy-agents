@@ -6,6 +6,72 @@ CHY Agents是一个基于Spring AI构建的分布式智能代理系统，支持�
 [![JDK](https://img.shields.io/badge/JDK-17%2B-green.svg)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.0-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![Spring AI](https://img.shields.io/badge/Spring%20AI-0.8.0-orange.svg)](https://spring.io/projects/spring-ai)
+[![Alibaba Cloud](https://img.shields.io/badge/Alibaba_Cloud-1.0.0-blue.svg)](https://www.aliyun.com/)
+
+## 新增功能亮点 ✨
+
+**阿里云模型深度集成**：
+- 通义千问大语言模型支持
+- 通义万相图像生成模型
+- 灵积向量计算服务
+- 内容安全审核服务
+
+**企业级特性**：
+- 私有化部署支持
+- 行业知识增强
+- 商业版权保障
+- 全链路审计追踪
+
+## 快速接入阿里云
+
+### 配置示例
+```yaml
+spring:
+  ai:
+    alibaba:
+      access-key-id: ${ALIBABA_ACCESS_KEY}
+      access-key-secret: ${ALIBABA_SECRET_KEY}
+      region: cn-hangzhou
+      chat:
+        model: qwen-max
+        endpoint: https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation
+```
+
+### 代码示例
+```java
+// 创建使用阿里云模型的代理
+@Bean
+@Qualifier("alibabaAgent")
+public Agent alibabaAgent(
+    @Qualifier("alibabaChatClient") ChatClient chatClient) {
+    return new SimpleAgent("阿里云助手", "基于通义千问的智能助手", chatClient);
+}
+
+// 调用示例
+String response = agent.execute("杭州亚运会的吉祥物是什么？", "alibaba");
+```
+
+## 架构升级说明
+
+### 新增模块
+```
+chy-agents/
+└── chy-agents-alibaba     # 阿里云模型集成
+    ├── client/            # 客户端适配
+    ├── config/            # 配置管理
+    └── filter/            # 安全过滤
+```
+
+### 模型路由机制
+```java
+// 根据provider参数动态选择模型
+public String execute(String input, String provider) {
+    ChatClient client = modelRouter.selectClient(provider);
+    return client.call(prompt);
+}
+```
+
+完整更新内容请查看[更新日志](CHANGELOG.md)
 
 ## 项目架构
 

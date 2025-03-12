@@ -1,6 +1,7 @@
 package com.chy.agents.common.config;
 
-import org.springframework.ai.chat.ChatClient;
+
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.embedding.EmbeddingClient;
 import org.springframework.ai.image.ImageClient;
 import org.springframework.ai.openai.OpenAiChatClient;

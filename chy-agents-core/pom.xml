@@ -11,6 +11,9 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
 
+  <artifactId>chy-agents-core</artifactId>
+  <packaging>jar</packaging>
+
   <dependencies>
     <dependency>
       <groupId>org.springframework.ai</groupId>

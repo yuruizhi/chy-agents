@@ -11,7 +11,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>rag-agent</artifactId>
+    <artifactId>chy-agents-rag</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>

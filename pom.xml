@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.0</version>
+        <version>3.2.4</version>
     </parent>
 
     <groupId>com.chy</groupId>
@@ -21,7 +21,7 @@
         <module>chy-agents-rag</module>
         <module>chy-agents-common</module>
         <module>chy-agents-core</module>
-        <module>chy-agents-api</module>
+        <module>chy-agents-rest</module>
     </modules>
 
     <properties>
@@ -41,7 +41,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>3.2.5</version>
+                <version>3.2.4</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -65,7 +65,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>3.2.5</version>
+                <version>3.2.4</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -102,6 +102,17 @@
             <releases>
                 <enabled>false</enabled>
             </releases>
+        </repository>
+        <repository>
+            <id>aliyun-maven</id>
+            <name>Aliyun Maven Repository</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
 </project> 

@@ -11,7 +11,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>image-agent</artifactId>
+    <artifactId>chy-agents-image</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>

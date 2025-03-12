@@ -14,16 +14,13 @@ import org.springframework.context.annotation.Configuration;
  * @date 2025/3/12
  */
 @Configuration
-// 定义一个Bean，用于创建OpenAiApi实例
 public class AiConfig {
 
     @Bean
     public OpenAiApi openAiApi(OpenAiProperties properties) {
-        // 使用OpenAiProperties中的apiKey创建OpenAiApiClient实例
         return new OpenAiApiClient(properties.getApiKey());
     }
 
-    // 定义一个Bean，用于创建ChatClient实例
     @Bean
     public ChatClient chatClient(OpenAiApi openAiApi, OpenAiProperties properties) {
         // 创建OpenAiChatOptions实例，并设置模型和温度
@@ -35,21 +32,18 @@ public class AiConfig {
         return new OpenAiChatClient(openAiApi, options);
     }
     
-    // 定义一个Bean，用于创建ImageClient实例
     @Bean
     public ImageClient imageClient(OpenAiApi openAiApi, OpenAiProperties properties) {
         // 使用OpenAiApi创建OpenAiImageClient实例
         return new OpenAiImageClient(openAiApi);
     }
     
-    // 定义一个Bean，用于创建EmbeddingClient实例
     @Bean
     public EmbeddingClient embeddingClient(OpenAiApi openAiApi) {
         // 使用OpenAiApi创建OpenAiEmbeddingClient实例
         return new OpenAiEmbeddingClient(openAiApi);
     }
     
-    // 定义一个Bean，用于创建VectorStore实例
     @Bean
     public VectorStore vectorStore(JdbcTemplate jdbcTemplate, EmbeddingClient embeddingClient) {
         // 使用JdbcTemplate和EmbeddingClient创建PgVectorStore实例

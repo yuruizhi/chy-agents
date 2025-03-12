@@ -3,6 +3,12 @@ package com.chy.agents.common.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * OpenAi配置。
+ *
+ * @author YuRuizhi
+ * @date 2025/3/12
+ */
 @Configuration
 @ConfigurationProperties(prefix = "openai")
 public class OpenAiProperties {

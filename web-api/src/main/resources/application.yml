@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: ai-agents
+  datasource:
+    url: jdbc:postgresql://localhost:5432/aiagents
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+openai:
+  api-key: ${OPENAI_API_KEY}
+  chat-model: gpt-4
+  embedding-model: text-embedding-3-small
+  temperature: 0.7
+
+server:
+  port: 8080 

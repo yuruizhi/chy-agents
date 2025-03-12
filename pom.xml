@@ -13,7 +13,7 @@
 
     <groupId>com.chy</groupId>
     <artifactId>chy-agents</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -21,6 +21,7 @@
         <spring-ai.version>0.8.0</spring-ai.version>
         <spring-boot.version>3.2.0</spring-boot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <revision>1.0.0-SNAPSHOT</revision>
     </properties>
 
     <modules>

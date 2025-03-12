@@ -12,7 +12,6 @@ public class OpenAiProperties {
     private String embeddingModel = "text-embedding-ada-002";
     private float temperature = 0.7f;
     
-    // Getters and setters
     public String getApiKey() {
         return apiKey;
     }

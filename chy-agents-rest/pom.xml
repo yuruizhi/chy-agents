@@ -33,5 +33,10 @@
             <artifactId>chy-agents-image</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.chy</groupId>
+            <artifactId>chy-agents-rag</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project> 

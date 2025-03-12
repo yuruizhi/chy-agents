@@ -1,6 +1,7 @@
 package com.chy.agents.rest.controller;
 
 import com.chy.agents.chat.service.ChatService;
+import jakarta.annotation.Resource;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,13 +14,9 @@ import java.util.Map;
 @RequestMapping("/api/chat")
 public class ChatController {
 
-    private final ChatService chatService;
-    
-    @Autowired
-    public ChatController(ChatService chatService) {
-        this.chatService = chatService;
-    }
-    
+    @Resource
+    private ChatService chatService;
+
     @PostMapping
     public Map<String, String> chat(@RequestBody Map<String, Object> request) {
         String userInput = (String) request.get("message");

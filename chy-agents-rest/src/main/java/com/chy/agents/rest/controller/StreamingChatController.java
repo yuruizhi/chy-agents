@@ -2,6 +2,7 @@ package com.chy.agents.rest.controller;
 
 import com.chy.agents.chat.service.StreamingChatService;
 import com.chy.agents.chat.service.SessionManager;
+import jakarta.annotation.Resource;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,20 +23,13 @@ import java.util.Map;
 @Controller
 public class StreamingChatController {
 
-    private final StreamingChatService streamingChatService;
-    private final SessionManager sessionManager;
-    private final SimpMessagingTemplate messagingTemplate;
-    
-    @Autowired
-    public StreamingChatController(
-            StreamingChatService streamingChatService, 
-            SessionManager sessionManager,
-            SimpMessagingTemplate messagingTemplate) {
-        this.streamingChatService = streamingChatService;
-        this.sessionManager = sessionManager;
-        this.messagingTemplate = messagingTemplate;
-    }
-    
+    @Resource
+    private StreamingChatService streamingChatService;
+    @Resource
+    private SessionManager sessionManager;
+    @Resource
+    private SimpMessagingTemplate messagingTemplate;
+
     @MessageMapping("/chat.stream")
     public void streamChat(@Payload Map<String, Object> request) {
         String sessionId = (String) request.get("sessionId");

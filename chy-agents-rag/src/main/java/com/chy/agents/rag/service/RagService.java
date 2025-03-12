@@ -1,9 +1,8 @@
 package com.chy.agents.rag.service;
 
-
-import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.ChatClient;
+import org.springframework.ai.chat.ChatResponse;
 import org.springframework.ai.chat.messages.UserMessage;
-import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.SearchRequest;
@@ -14,6 +13,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * RAG服务类
+ *
+ *
+ */
 @Service
 public class RagService {
 
@@ -54,5 +58,6 @@ public class RagService {
     public void addDocumentToKnowledgeBase(String content, Map<String, Object> metadata) {
         Document document = new Document(content, metadata);
         vectorStore.add(List.of(document));
+
     }
 }

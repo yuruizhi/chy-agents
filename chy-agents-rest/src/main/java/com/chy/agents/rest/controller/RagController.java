@@ -1,7 +1,8 @@
 package com.chy.agents.rest.controller;
 
+
 import com.chy.agents.rag.service.RagService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -10,12 +11,9 @@ import java.util.Map;
 @RequestMapping("/api/rag")
 public class RagController {
 
-    private final RagService ragService;
-    
-    @Autowired
-    public RagController(RagService ragService) {
-        this.ragService = ragService;
-    }
+    @Resource
+    private RagService ragService;
+
     
     @PostMapping("/query")
     public Map<String, String> query(@RequestBody Map<String, String> request) {

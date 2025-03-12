@@ -1,6 +1,7 @@
 package com.chy.agents.image.service;
 
 import org.springframework.ai.image.Image;
+import org.springframework.ai.image.ImageClient;
 import org.springframework.ai.image.ImagePrompt;
 import org.springframework.ai.image.ImageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,6 @@ public class ImageGenerationService {
     public List<Image> generateImages(String prompt, int numberOfImages) {
         ImagePrompt imagePrompt = new ImagePrompt(prompt);
         ImageResponse response = imageClient.call(imagePrompt);
-        
         return response.getResult().getOutput();
     }
     

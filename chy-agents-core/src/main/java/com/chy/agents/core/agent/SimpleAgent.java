@@ -3,7 +3,7 @@ package com.chy.agents.core.agent;
 import com.chy.agents.core.agent.Agent.Tool;
 import com.chy.agents.core.agent.Agent.Memory;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.ChatClient;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
@@ -43,7 +43,8 @@ public class SimpleAgent implements Agent {
     @Override
     public String execute(String input) {
         // 准备所有消息，包括记忆和当前输入
-        List<Message> messages = new ArrayList<>(memory.get(10)); // 获取最近10条消息
+        // 获取最近10条消息
+        List<Message> messages = new ArrayList<>(memory.get(10));
         
         // 添加系统提示
         String systemPrompt = generateSystemPrompt();

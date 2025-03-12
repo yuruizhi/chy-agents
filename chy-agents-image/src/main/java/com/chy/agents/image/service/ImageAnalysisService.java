@@ -1,10 +1,9 @@
 package com.chy.agents.image.service;
 
-import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.ChatClient;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.UserMessage;
-import org.springframework.ai.chat.messages.Media;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,8 @@ import java.util.Base64;
 @Service
 public class ImageAnalysisService {
 
-    private final ChatClient visionChatClient; // 支持视觉能力的ChatClient
+    // 支持视觉能力的ChatClient
+    private final ChatClient visionChatClient;
     
     @Autowired
     public ImageAnalysisService(ChatClient visionChatClient) {

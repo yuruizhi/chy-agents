@@ -1,7 +1,7 @@
 package com.chy.agents.rest.controller;
 
 import com.chy.agents.image.service.ImageGenerationService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,13 +12,9 @@ import java.util.Map;
 @RequestMapping("/api/image")
 public class ImageController {
 
-    private final ImageGenerationService imageService;
-    
-    @Autowired
-    public ImageController(ImageGenerationService imageService) {
-        this.imageService = imageService;
-    }
-    
+    @Resource
+    private ImageGenerationService imageService;
+
     @PostMapping(produces = MediaType.IMAGE_PNG_VALUE)
     public ResponseEntity<byte[]> generateImage(@RequestBody Map<String, String> request) {
         String prompt = request.get("prompt");

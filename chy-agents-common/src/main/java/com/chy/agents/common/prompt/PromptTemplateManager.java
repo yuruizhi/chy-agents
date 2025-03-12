@@ -6,6 +6,12 @@ import org.springframework.ai.chat.prompt.PromptTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 模板管理器。
+ *
+ * @author YuRuizhi
+ * @date 2025/3/12
+ */
 @Component
 public class PromptTemplateManager {
     

@@ -23,7 +23,7 @@ public class OpenApiConfig {
             .info(new Info()
                 .title("CHY Agents API")
                 .description("基于Spring AI构建的智能代理系统")
-                .version("v0.0.1")
+                .version("v1.0.0")
                 .license(new License().name("Apache 2.0")));
     }
 } 

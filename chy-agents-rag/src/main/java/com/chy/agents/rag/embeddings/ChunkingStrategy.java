@@ -10,67 +10,13 @@ import java.util.List;
  * @date 2025/3/12
  */
 public interface ChunkingStrategy {
+    /**
+     * 将文档分块
+     * 
+     * @param document 要分块的文档
+     * @param maxChunkSize 每块最大大小
+     * @param overlap 块间重叠大小
+     * @return 分块后的文档列表
+     */
     List<Document> chunk(Document document, int maxChunkSize, int overlap);
 }
-
-// 实现类示例
-package com.chy.agents.rag.embeddings;
-
-import org.springframework.ai.document.Document;
-import org.springframework.stereotype.Component;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-
-@Component
-public class TextChunkingStrategy implements ChunkingStrategy {
-    @Override
-    public List<Document> chunk(Document document, int maxChunkSize, int overlap) {
-        String content = document.getContent();
-        Map<String, Object> metadata = document.getMetadata();
-        
-        List<Document> chunks = new ArrayList<>();
-        
-        // 简单的按句子分割实现
-        String[] sentences = content.split("[.!?]");
-        StringBuilder currentChunk = new StringBuilder();
-        Map<String, Object> chunkMetadata = Map.copyOf(metadata);
-        
-        for (String sentence : sentences) {
-            // 清理句子
-            String trimmedSentence = sentence.trim();
-            if (trimmedSentence.isEmpty()) {
-                continue;
-            }
-            
-            // 如果当前块加上新句子会超过限制，则创建新块
-            if (currentChunk.length() + trimmedSentence.length() > maxChunkSize) {
-                if (currentChunk.length() > 0) {
-                    chunks.add(new Document(currentChunk.toString(), chunkMetadata));
-                    
-                    // 保留重叠部分
-                    if (overlap > 0 && currentChunk.length() > overlap) {
-                        currentChunk = new StringBuilder(
-                            currentChunk.substring(currentChunk.length() - overlap)
-                        );
-                    } else {
-                        currentChunk = new StringBuilder();
-                    }
-                }
-            }
-            
-            // 添加句子到当前块
-            if (currentChunk.length() > 0) {
-                currentChunk.append(" ");
-            }
-            currentChunk.append(trimmedSentence).append(".");
-        }
-        
-        // 添加最后剩余的内容
-        if (currentChunk.length() > 0) {
-            chunks.add(new Document(currentChunk.toString(), chunkMetadata));
-        }
-        
-        return chunks;
-    }
-} 

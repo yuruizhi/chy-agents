@@ -1,7 +1,6 @@
 package com.chy.agents.image.service;
 
 import org.springframework.ai.image.Image;
-import org.springframework.ai.image.ImageClient;
 import org.springframework.ai.image.ImagePrompt;
 import org.springframework.ai.image.ImageResponse;
 import org.springframework.beans.factory.annotation.Autowired;

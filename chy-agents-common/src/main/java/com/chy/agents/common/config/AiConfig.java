@@ -1,19 +1,11 @@
 package com.chy.agents.common.config;
 
-import org.springframework.ai.chat.ChatClient;
-import org.springframework.ai.chat.openai.OpenAiChatClient;
-import org.springframework.ai.chat.openai.OpenAiChatOptions;
-import org.springframework.ai.image.ImageClient;
-import org.springframework.ai.image.openai.OpenAiImageClient;
-import org.springframework.ai.openai.OpenAiApi;
-import org.springframework.ai.openai.api.OpenAiApiClient;
-import org.springframework.ai.vectorstore.PgVectorStore;
+import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.openai.OpenAiChatOptions;
+import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.ai.embedding.EmbeddingClient;
-import org.springframework.ai.embedding.openai.OpenAiEmbeddingClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 @Configuration
 public class AiConfig {

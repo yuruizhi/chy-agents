@@ -1,9 +1,9 @@
 package com.chy.agents.rag.service;
 
-import org.springframework.ai.chat.ChatClient;
-import org.springframework.ai.chat.ChatResponse;
-import org.springframework.ai.chat.messages.Message;
+
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.SearchRequest;
@@ -28,7 +28,7 @@ public class RagService {
     
     public String query(String userQuery) {
         // 1. 从向量存储中检索相关文档
-        List<Document> relevantDocs = vectorStore.search(
+        List<Document> relevantDocs = vectorStore.similaritySearch(
             SearchRequest.query(userQuery).withTopK(3)
         );
         

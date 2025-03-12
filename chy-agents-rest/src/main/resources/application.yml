@@ -1,6 +1,6 @@
 spring:
   application:
-    name: ai-agents
+    name: chy-agents-rest
   datasource:
     url: jdbc:postgresql://localhost:5432/aiagents
     username: postgres

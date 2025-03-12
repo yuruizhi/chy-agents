@@ -4,8 +4,8 @@ CHY Agents是一个基于Spring AI构建的分布式智能代理系统，支持�
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![JDK](https://img.shields.io/badge/JDK-17%2B-green.svg)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.0-brightgreen.svg)](https://spring.io/projects/spring-boot)
-[![Spring AI](https://img.shields.io/badge/Spring%20AI-0.8.0-orange.svg)](https://spring.io/projects/spring-ai)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.0-brightgreen.svg)](https://spring.io/projects/spring-boot)
+[![Spring AI](https://img.shields.io/badge/Spring%20AI-1.0.0-orange.svg)](https://spring.io/projects/spring-ai)
 [![Alibaba Cloud](https://img.shields.io/badge/Alibaba_Cloud-1.0.0-blue.svg)](https://www.aliyun.com/)
 
 ## 新增功能亮点 ✨
@@ -18,7 +18,7 @@ CHY Agents是一个基于Spring AI构建的分布式智能代理系统，支持�
 
 **企业级特性**：
 - 私有化部署支持
-- 行业知识增强
+- 行业知识增强4
 - 商业版权保障
 - 全链路审计追踪
 

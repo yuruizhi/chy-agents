@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * OpenAi配置。
+ * OpenAi配置
  *
  * @author YuRuizhi
  * @date 2025/3/12

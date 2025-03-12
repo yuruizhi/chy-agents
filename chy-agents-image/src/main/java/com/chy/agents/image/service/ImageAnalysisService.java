@@ -11,6 +11,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Base64;
 
+/**
+ * 图像分析服务
+ *
+ * @author YuRuizhi
+ * @date 2025/3/12
+ */
 @Service
 public class ImageAnalysisService {
 

@@ -10,6 +10,12 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 会话管理服务
+ *
+ * @author YuRuizhi
+ * @date 2025/3/12
+ */
 @Service
 public class SessionManager {
     

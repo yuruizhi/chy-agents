@@ -17,6 +17,12 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 简单代理实现
+ *
+ * @author YuRuizhi
+ * @date 2025/3/12
+ */
 @Slf4j
 public class SimpleAgent implements Agent {
     
@@ -175,7 +181,12 @@ public class SimpleAgent implements Agent {
         this.memory = memory;
     }
     
-    // 简单的内存实现
+    /**
+     * 简单的内存实现
+     *
+     * @author YuRuizhi
+     * @date 2025/3/12
+     */
     private static class SimpleMemory implements Memory {
         private final List<Message> messages = new ArrayList<>();
         
@@ -196,7 +207,12 @@ public class SimpleAgent implements Agent {
         }
     }
     
-    // 简单的助手消息实现
+    /**
+     * 简单的助手消息实现
+     *
+     * @author YuRuizhi
+     * @date 2025/3/12
+     */
     private static class SimpleAssistantMessage implements Message {
         private final String content;
         

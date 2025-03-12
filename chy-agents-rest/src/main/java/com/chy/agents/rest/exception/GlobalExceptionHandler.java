@@ -9,6 +9,12 @@ import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * 全局异常处理器
+ *
+ * @author YuRuizhi
+ * @date 2025/3/12
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
     

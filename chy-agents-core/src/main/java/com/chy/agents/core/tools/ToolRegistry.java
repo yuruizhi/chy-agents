@@ -8,6 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * 工具注册管理器
+ *
+ * @author YuRuizhi
+ * @date 2025/3/12
+ */
 @Component
 public class ToolRegistry {
     

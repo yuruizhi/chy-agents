@@ -5,6 +5,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
+/**
+ * 应用程序入口
+ *
+ * @author YuRuizhi
+ * @date 2025/3/12
+ */
 @SpringBootApplication
 @Import(AiConfig.class)
 public class ChydaApplication {

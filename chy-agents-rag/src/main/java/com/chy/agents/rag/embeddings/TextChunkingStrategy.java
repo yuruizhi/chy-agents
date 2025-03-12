@@ -1,27 +1,17 @@
 package com.chy.agents.rag.embeddings;
 
 import org.springframework.ai.document.Document;
-import java.util.List;
-
-/**
- * 文档分块策略接口
- *
- * @author YuRuizhi
- * @date 2025/3/12
- */
-public interface ChunkingStrategy {
-    List<Document> chunk(Document document, int maxChunkSize, int overlap);
-}
-
-// 实现类示例
-package com.chy.agents.rag.embeddings;
-
-import org.springframework.ai.document.Document;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * 文本分块策略实现
+ *
+ * @author YuRuizhi
+ * @date 2025/3/12
+ */
 @Component
 public class TextChunkingStrategy implements ChunkingStrategy {
     @Override

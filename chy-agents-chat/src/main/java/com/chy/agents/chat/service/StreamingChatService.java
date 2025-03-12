@@ -12,6 +12,12 @@ import reactor.core.publisher.Flux;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * 流式聊天服务
+ *
+ * @author YuRuizhi
+ * @date 2025/3/12
+ */
 @Service
 public class StreamingChatService {
 

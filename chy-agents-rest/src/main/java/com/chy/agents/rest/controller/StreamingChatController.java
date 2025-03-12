@@ -13,6 +13,12 @@ import org.springframework.stereotype.Controller;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 流式聊天控制器
+ *
+ * @author YuRuizhi
+ * @date 2025/3/12
+ */
 @Controller
 public class StreamingChatController {
 

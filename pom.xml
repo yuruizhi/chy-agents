@@ -10,17 +10,18 @@
         <version>3.2.0</version>
     </parent>
 
-    <groupId>com.example</groupId>
-    <artifactId>ai-agents</artifactId>
+    <groupId>com.chy</groupId>
+    <artifactId>chy-agents</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>chat-agent</module>
-        <module>image-agent</module>
-        <module>rag-agent</module>
-        <module>common</module>
-        <module>web-api</module>
+        <module>chy-agents-chat</module>
+        <module>chy-agents-image</module>
+        <module>chy-agents-rag</module>
+        <module>chy-agents-common</module>
+        <module>chy-agents-core</module>
+        <module>chy-agents-api</module>
     </modules>
 
     <properties>
@@ -34,6 +35,13 @@
                 <groupId>org.springframework.ai</groupId>
                 <artifactId>spring-ai-bom</artifactId>
                 <version>${spring-ai.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>3.2.5</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -51,6 +59,33 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.2.5</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <repositories>
         <repository>
             <id>spring-milestones</id>

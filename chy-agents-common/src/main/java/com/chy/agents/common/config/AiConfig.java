@@ -1,15 +1,9 @@
 package com.chy.agents.common.config;
 
-
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
-import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
-import org.springframework.ai.chat.memory.ChatMemory;
-import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.chat.ChatClient;
 import org.springframework.ai.openai.OpenAiChatOptions;
+import org.springframework.ai.openai.OpenAiChatClient;
 import org.springframework.ai.openai.api.OpenAiApi;
-import org.springframework.ai.vectorstore.SearchRequest;
-import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,7 +18,7 @@ public class AiConfig {
 
     @Bean
     public OpenAiApi openAiApi(OpenAiProperties properties) {
-        return new OpenAiApiClient(properties.getApiKey());
+        return new OpenAiApi(properties.getApiKey());
     }
 
     @Bean
@@ -32,39 +26,9 @@ public class AiConfig {
         // 创建OpenAiChatOptions实例，并设置模型和温度
         OpenAiChatOptions options = OpenAiChatOptions.builder()
                 .withModel(properties.getChatModel())
-                .withTemperature(properties.getTemperature())
+                .withTemperature(Double.valueOf(properties.getTemperature()))
                 .build();
         // 使用OpenAiApi和OpenAiChatOptions创建OpenAiChatClient实例
         return new OpenAiChatClient(openAiApi, options);
-    }
-
-    @Bean
-    public ChatClient chatClient(ChatModel chatModel, ChatMemory chatMemory, VectorStore vectorStore) {
-        return ChatClient.builder(chatModel)
-                .defaultAdvisors(
-                        new MessageChatMemoryAdvisor(chatMemory), // chat-memory advisor
-                        new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults()) // RAG advisor
-                )
-                .build();
-    }
-
-
-    
-    @Bean
-    public ImageClient imageClient(OpenAiApi openAiApi, OpenAiProperties properties) {
-        // 使用OpenAiApi创建OpenAiImageClient实例
-        return new OpenAiImageClient(openAiApi);
-    }
-    
-    @Bean
-    public EmbeddingClient embeddingClient(OpenAiApi openAiApi) {
-        // 使用OpenAiApi创建OpenAiEmbeddingClient实例
-        return new OpenAiEmbeddingClient(openAiApi);
-    }
-    
-    @Bean
-    public VectorStore vectorStore(JdbcTemplate jdbcTemplate, EmbeddingClient embeddingClient) {
-        // 使用JdbcTemplate和EmbeddingClient创建PgVectorStore实例
-        return new PgVectorStore(jdbcTemplate, embeddingClient);
     }
 } 

@@ -4,7 +4,10 @@ spring:
       access-key-id: ${ALIBABA_ACCESS_KEY}
       access-key-secret: ${ALIBABA_SECRET_KEY}
       region: cn-hangzhou
-      dashscope: XXX
+      dashscope:
+        api-key: ${ALIBABA_API_KEY}
+        model: qwen-max
+        endpoint: https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation
       chat:
         model: qwen-max
         endpoint: https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation 

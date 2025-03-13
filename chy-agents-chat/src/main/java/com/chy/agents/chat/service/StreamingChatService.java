@@ -1,5 +1,6 @@
 package com.chy.agents.chat.service;
 
+import jakarta.annotation.Resource;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.StreamingChatClient;
 import org.springframework.ai.chat.messages.Message;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 @Service
 public class StreamingChatService {
 
+    @Resource
     private final StreamingChatClient streamingChatClient;
     
     @Autowired(required = false)

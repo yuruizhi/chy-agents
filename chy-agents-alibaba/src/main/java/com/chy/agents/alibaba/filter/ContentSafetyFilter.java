@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ContentSafetyFilter {
+
     @Autowired
     private GreenService greenService;
 

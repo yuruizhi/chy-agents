@@ -30,7 +30,7 @@
         <spring-ai-alibaba.version>1.0.0-M5.1</spring-ai-alibaba.version>
 
         <!-- Spring Boot -->
-        <spring-boot.version>3.4.0</spring-boot.version>
+        <spring-boot.version>3.2.0</spring-boot.version>
 
         <!-- maven plugin -->
         <maven-deploy-plugin.version>3.1.1</maven-deploy-plugin.version>
@@ -182,6 +182,16 @@
             <releases>
                 <enabled>false</enabled>
             </releases>
+        </repository>
+        <repository>
+            <id>aliyun</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
 

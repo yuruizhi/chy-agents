@@ -1,0 +1,13 @@
+chy:
+  agents:
+    alibaba:
+      api-key: ${ALIBABA_API_KEY:test-api-key}
+      model: qwen-max
+      endpoint: https://test-endpoint
+      temperature: 0.8
+      max-tokens: 2048
+      timeout: 60
+      access-key-id: ${ALIBABA_ACCESS_KEY:test-access-key}
+      access-key-secret: ${ALIBABA_SECRET_KEY:test-secret-key}
+      region: cn-hangzhou
+      proxy: http://proxy:8080 

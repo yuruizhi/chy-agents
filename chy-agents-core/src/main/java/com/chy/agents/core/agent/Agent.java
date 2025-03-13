@@ -2,6 +2,8 @@ package com.chy.agents.core.agent;
 
 import org.springframework.ai.chat.messages.Message;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * 代理接口定义
@@ -12,12 +14,39 @@ import java.util.List;
 public interface Agent {
     
     /**
-     * 执行代理逻辑
+     * 同步执行任务
      *
-     * @param input 用户输入
-     * @return 代理响应
+     * @param input 输入参数
+     * @param context 上下文参数
+     * @return 执行结果
      */
-    String execute(String input);
+    AgentResponse execute(String input, Map<String, Object> context);
+    
+    /**
+     * 异步执行任务
+     *
+     * @param input 输入参数
+     * @param context 上下文参数
+     * @return 异步执行结果
+     */
+    CompletableFuture<AgentResponse> executeAsync(String input, Map<String, Object> context);
+    
+    /**
+     * 获取代理配置
+     *
+     * @return 代理配置
+     */
+    AgentConfig getConfig();
+    
+    /**
+     * 重置代理状态
+     */
+    void reset();
+    
+    /**
+     * 关闭代理资源
+     */
+    void close();
     
     /**
      * 获取代理名称

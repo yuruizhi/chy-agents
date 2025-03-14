@@ -40,22 +40,91 @@ class AlibabaChatClientTest {
     void setUp() {
         config = new AlibabaConfig();
         config.setApiKey("test-api-key");
-        config.setModel("qwen-max");
-        config.setEndpoint("https://test-endpoint");
+        config.setModel("qwen-turbo");
         config.setTemperature(0.7f);
         config.setMaxTokens(4096);
-        config.setAccessKeyId("test-access-key");
-        config.setAccessKeySecret("test-secret-key");
+        config.setEndpoint("https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation");
+        config.setTimeout(30);
 
-        chatClient = new AlibabaChatClient(config);
-        // 使用反射注入mock的RestTemplate
-        try {
-            java.lang.reflect.Field field = AlibabaChatClient.class.getDeclaredField("restTemplate");
-            field.setAccessible(true);
-            field.set(chatClient, restTemplate);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        chatClient = new AlibabaChatClient(config) {
+            @Override
+            protected RestTemplate createRestTemplate() {
+                return restTemplate;
+            }
+        };
+    }
+
+    @Test
+    void testGetConfig() {
+        Map<String, Object> configMap = chatClient.getConfig();
+        
+        assertThat(configMap).containsEntry("provider", "alibaba");
+        assertThat(configMap).containsEntry("model", "qwen-turbo");
+        assertThat(configMap).containsEntry("endpoint", config.getEndpoint());
+    }
+
+    @Test
+    void testGetProvider() {
+        assertThat(chatClient.getProvider()).isEqualTo("alibaba");
+    }
+
+    @Test
+    void testGetModel() {
+        assertThat(chatClient.getModel()).isEqualTo("qwen-turbo");
+    }
+
+    @Test
+    void testCall() {
+        // Setup mock response
+        Map<String, Object> output = Map.of("text", "Test response");
+        Map<String, Object> response = Map.of("output", output);
+        
+        when(restTemplate.postForObject(
+            eq(config.getEndpoint()),
+            any(),
+            eq(Map.class)
+        )).thenReturn(response);
+
+        // Create prompt
+        Prompt prompt = Prompt.builder()
+                .systemPrompt("You are a helpful assistant.")
+                .userInput("Hello, how are you?")
+                .build();
+
+        // Call the client
+        Message result = chatClient.call(prompt);
+
+        // Verify response
+        assertThat(result).isNotNull();
+        assertThat(result.getContent()).isEqualTo("Test response");
+        assertThat(result.getRole()).isEqualTo(Message.Role.ASSISTANT);
+    }
+
+    @Test
+    void testCallAsync() throws Exception {
+        // Setup mock response
+        Map<String, Object> output = Map.of("text", "Test response");
+        Map<String, Object> response = Map.of("output", output);
+        
+        when(restTemplate.postForObject(
+            eq(config.getEndpoint()),
+            any(),
+            eq(Map.class)
+        )).thenReturn(response);
+
+        // Create prompt
+        Prompt prompt = Prompt.builder()
+                .systemPrompt("You are a helpful assistant.")
+                .userInput("Hello, how are you?")
+                .build();
+
+        // Call the client asynchronously
+        Message result = chatClient.callAsync(prompt).get();
+
+        // Verify response
+        assertThat(result).isNotNull();
+        assertThat(result.getContent()).isEqualTo("Test response");
+        assertThat(result.getRole()).isEqualTo(Message.Role.ASSISTANT);
     }
 
     @Test

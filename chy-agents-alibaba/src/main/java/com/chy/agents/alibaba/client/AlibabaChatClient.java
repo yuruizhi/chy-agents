@@ -26,7 +26,7 @@ public class AlibabaChatClient implements ChatClient {
     
     public AlibabaChatClient(AlibabaConfig config) {
         this.config = config;
-        this.restTemplate = new RestTemplate();
+        this.restTemplate = createRestTemplate();
         this.headers = new HashMap<>();
         
         // 设置请求头
@@ -36,6 +36,16 @@ public class AlibabaChatClient implements ChatClient {
             headers.put("x-acm-access-key-id", config.getAccessKeyId());
             headers.put("x-acm-access-key-secret", config.getAccessKeySecret());
         }
+    }
+    
+    /**
+     * Create a RestTemplate instance.
+     * This method can be overridden in tests to provide a mock.
+     * 
+     * @return a new RestTemplate instance
+     */
+    protected RestTemplate createRestTemplate() {
+        return new RestTemplate();
     }
     
     @Override
@@ -71,36 +81,41 @@ public class AlibabaChatClient implements ChatClient {
     
     @Override
     public List<Message> stream(Prompt prompt) {
-        Map<String, Object> requestBody = buildRequestBody(prompt);
-        requestBody.put("stream", true);
-        
-        CountDownLatch completionLatch = new CountDownLatch(1);
-        List<Message> messages = new ArrayList<>();
-        Consumer<Message> messageHandler = messages::add;
-        Consumer<Throwable> errorHandler = error -> {
-            log.error("Streaming error", error);
-            completionLatch.countDown();
-        };
-        Runnable completionHandler = completionLatch::countDown;
-        
-        AlibabaStreamHandler streamHandler = new AlibabaStreamHandler(config.getEndpoint(), headers)
-            .onMessage(messageHandler)
-            .onError(errorHandler)
-            .onComplete(completionHandler);
-        
-        List<Message> streamMessages = streamHandler.stream(requestBody);
-        
         try {
-            // 等待流式处理完成或超时
-            if (!completionLatch.await(config.getTimeout(), TimeUnit.SECONDS)) {
-                log.warn("Streaming timed out after {} seconds", config.getTimeout());
+            Map<String, Object> requestBody = buildRequestBody(prompt);
+            requestBody.put("stream", true);
+            
+            CountDownLatch completionLatch = new CountDownLatch(1);
+            List<Message> messages = new ArrayList<>();
+            Consumer<Message> messageHandler = messages::add;
+            Consumer<Throwable> errorHandler = error -> {
+                log.error("Streaming error", error);
+                completionLatch.countDown();
+            };
+            Runnable completionHandler = completionLatch::countDown;
+            
+            AlibabaStreamHandler streamHandler = new AlibabaStreamHandler(config.getEndpoint(), headers)
+                .onMessage(messageHandler)
+                .onError(errorHandler)
+                .onComplete(completionHandler);
+            
+            List<Message> streamMessages = streamHandler.stream(requestBody);
+            
+            try {
+                // 等待流式处理完成或超时
+                if (!completionLatch.await(config.getTimeout(), TimeUnit.SECONDS)) {
+                    log.warn("Streaming timed out after {} seconds", config.getTimeout());
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                log.error("Streaming interrupted", e);
             }
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            log.error("Streaming interrupted", e);
+            
+            return streamMessages.isEmpty() ? Collections.emptyList() : streamMessages;
+        } catch (Exception e) {
+            log.error("Failed to stream from Alibaba model", e);
+            throw new RuntimeException("Failed to stream from Alibaba model", e);
         }
-        
-        return streamMessages;
     }
     
     @Override

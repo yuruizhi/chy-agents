@@ -1,4 +1,4 @@
-package com.chy.agents.alibaba.client;
+package com.chy.agents.openai.client;
 
 import com.chy.agents.core.chat.message.BaseMessage;
 import com.chy.agents.core.chat.message.Message;
@@ -6,11 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -18,10 +16,10 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
 /**
- * 阿里云通义流式处理器
+ * OpenAI stream handler for processing streaming responses
  */
 @Slf4j
-public class AlibabaStreamHandler {
+public class OpenAiStreamHandler {
     
     private final WebClient webClient;
     private final Map<String, String> headers;
@@ -31,7 +29,7 @@ public class AlibabaStreamHandler {
     private Consumer<Throwable> onError;
     private Runnable onComplete;
     
-    public AlibabaStreamHandler(String endpoint, Map<String, String> headers) {
+    public OpenAiStreamHandler(String endpoint, Map<String, String> headers) {
         this.webClient = WebClient.builder()
             .baseUrl(endpoint)
             .build();
@@ -40,17 +38,17 @@ public class AlibabaStreamHandler {
         this.currentMessage = new AtomicReference<>(new StringBuilder());
     }
     
-    public AlibabaStreamHandler onMessage(Consumer<Message> onMessage) {
+    public OpenAiStreamHandler onMessage(Consumer<Message> onMessage) {
         this.onMessage = onMessage;
         return this;
     }
     
-    public AlibabaStreamHandler onError(Consumer<Throwable> onError) {
+    public OpenAiStreamHandler onError(Consumer<Throwable> onError) {
         this.onError = onError;
         return this;
     }
     
-    public AlibabaStreamHandler onComplete(Runnable onComplete) {
+    public OpenAiStreamHandler onComplete(Runnable onComplete) {
         this.onComplete = onComplete;
         return this;
     }
@@ -84,21 +82,26 @@ public class AlibabaStreamHandler {
                 @SuppressWarnings("unchecked")
                 Map<String, Object> data = (Map<String, Object>) event.data();
                 
-                if (data.containsKey("output")) {
-                    Map<String, Object> output = (Map<String, Object>) data.get("output");
-                    String text = (String) output.get("text");
-                    
-                    // 处理增量内容
-                    if (text != null) {
-                        StringBuilder current = currentMessage.get();
-                        current.append(text);
+                if (data.containsKey("choices")) {
+                    List<Map<String, Object>> choices = (List<Map<String, Object>>) data.get("choices");
+                    if (!choices.isEmpty()) {
+                        Map<String, Object> choice = choices.get(0);
+                        Map<String, Object> delta = (Map<String, Object>) choice.get("delta");
                         
-                        Message message = BaseMessage.assistantMessage(current.toString());
-                        messages.clear(); // 清除之前的增量消息
-                        messages.add(message);
-                        
-                        if (onMessage != null) {
-                            onMessage.accept(message);
+                        if (delta != null && delta.containsKey("content")) {
+                            String content = (String) delta.get("content");
+                            if (content != null) {
+                                StringBuilder current = currentMessage.get();
+                                current.append(content);
+                                
+                                Message message = BaseMessage.assistantMessage(current.toString());
+                                messages.clear(); // Clear previous incremental messages
+                                messages.add(message);
+                                
+                                if (onMessage != null) {
+                                    onMessage.accept(message);
+                                }
+                            }
                         }
                     }
                 }

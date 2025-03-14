@@ -6,12 +6,92 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * 代理接口定义
- *
- * @author YuRuizhi
- * @date 2025/3/12
+ * 智能代理接口
+ * 定义了一个智能代理的基本功能和行为
  */
 public interface Agent {
+    
+    /**
+     * 获取代理ID
+     *
+     * @return 代理ID
+     */
+    String getId();
+    
+    /**
+     * 获取代理名称
+     *
+     * @return 代理名称
+     */
+    String getName();
+    
+    /**
+     * 获取代理描述
+     *
+     * @return 代理描述
+     */
+    String getDescription();
+    
+    /**
+     * 获取代理配置
+     *
+     * @return 代理配置对象
+     */
+    AgentConfig getConfig();
+    
+    /**
+     * 处理用户输入，生成响应
+     *
+     * @param input 用户输入内容
+     * @return 代理响应内容
+     */
+    String process(String input);
+    
+    /**
+     * 处理用户输入，附带上下文信息
+     *
+     * @param input 用户输入内容
+     * @param context 上下文信息
+     * @return 代理响应内容
+     */
+    String process(String input, Map<String, Object> context);
+    
+    /**
+     * 获取代理能力列表
+     *
+     * @return 代理能力列表
+     */
+    List<String> getCapabilities();
+    
+    /**
+     * 检查代理是否拥有特定能力
+     *
+     * @param capability 能力名称
+     * @return 是否拥有该能力
+     */
+    boolean hasCapability(String capability);
+    
+    /**
+     * 获取代理状态
+     *
+     * @return 代理状态
+     */
+    AgentStatus getStatus();
+    
+    /**
+     * 启动代理
+     */
+    void start();
+    
+    /**
+     * 停止代理
+     */
+    void stop();
+    
+    /**
+     * 重置代理状态
+     */
+    void reset();
     
     /**
      * 同步执行任务
@@ -30,51 +110,6 @@ public interface Agent {
      * @return 异步执行结果
      */
     CompletableFuture<AgentResponse> executeAsync(String input, Map<String, Object> context);
-    
-    /**
-     * 获取代理配置
-     *
-     * @return 代理配置
-     */
-    AgentConfig getConfig();
-    
-    /**
-     * 重置代理状态
-     */
-    void reset();
-    
-    /**
-     * 关闭代理资源
-     */
-    void close();
-    
-    /**
-     * 获取代理名称
-     * 
-     * @return 代理名称
-     */
-    String getName();
-    
-    /**
-     * 设置代理名称
-     * 
-     * @param name 代理名称
-     */
-    void setName(String name);
-    
-    /**
-     * 获取代理描述
-     * 
-     * @return 代理描述
-     */
-    String getDescription();
-    
-    /**
-     * 设置代理描述
-     * 
-     * @param description 代理描述
-     */
-    void setDescription(String description);
     
     /**
      * 获取代理工具列表

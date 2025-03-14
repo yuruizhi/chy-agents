@@ -26,7 +26,7 @@ public class AlibabaChatClient implements ChatClient {
     
     public AlibabaChatClient(AlibabaConfig config) {
         this.config = config;
-        this.restTemplate = createRestTemplate();
+        this.restTemplate = new RestTemplate();
         this.headers = new HashMap<>();
         
         // 设置请求头
@@ -36,16 +36,6 @@ public class AlibabaChatClient implements ChatClient {
             headers.put("x-acm-access-key-id", config.getAccessKeyId());
             headers.put("x-acm-access-key-secret", config.getAccessKeySecret());
         }
-    }
-    
-    /**
-     * Create a RestTemplate instance.
-     * This method can be overridden in tests to provide a mock.
-     * 
-     * @return a new RestTemplate instance
-     */
-    protected RestTemplate createRestTemplate() {
-        return new RestTemplate();
     }
     
     @Override

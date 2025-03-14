@@ -12,16 +12,39 @@
 
     <artifactId>chy-agents-image</artifactId>
     <packaging>jar</packaging>
+    <name>CHY Agents - Image Processing</name>
+    <description>Image generation and analysis services for CHY Agents</description>
 
     <dependencies>
+        <!-- Spring AI Stability AI -->
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-stability-ai-spring-boot-starter</artifactId>
         </dependency>
+        
+        <!-- Spring AI OpenAI for vision capabilities -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
+        </dependency>
+        
+        <!-- CHY Agents Common -->
         <dependency>
             <groupId>com.chy</groupId>
             <artifactId>chy-agents-common</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        
+        <!-- Spring Web for REST API -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        
+        <!-- Spring Boot Actuator for health checking -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
     </dependencies>
 </project> 

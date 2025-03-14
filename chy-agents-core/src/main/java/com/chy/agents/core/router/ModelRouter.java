@@ -7,17 +7,33 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 模型路由接口
+ * 模型路由器接口，定义模型选择和路由的基本功能
  */
 public interface ModelRouter {
     
     /**
-     * 根据提供商选择模型客户端
+     * 根据提供商名称选择对应的ChatClient
      *
-     * @param provider 提供商名称
-     * @return 聊天客户端
+     * @param provider 模型提供商名称
+     * @return 对应的ChatClient实例
      */
     ChatClient selectClient(String provider);
+    
+    /**
+     * 根据输入内容和上下文智能选择最合适的ChatClient
+     *
+     * @param input 用户输入内容
+     * @return 最合适的ChatClient实例
+     */
+    ChatClient selectClientByInput(String input);
+    
+    /**
+     * 当主要模型不可用时，提供备选的ChatClient
+     *
+     * @param provider 原始模型提供商名称
+     * @return 备选的ChatClient实例
+     */
+    ChatClient fallbackClient(String provider);
     
     /**
      * 根据路由策略选择最佳模型客户端

@@ -9,7 +9,7 @@
     <version>${revision}</version>
     <packaging>pom</packaging>
 
-    <description>CHY Agents</description>
+    <description>CHY Agents - Enterprise Intelligent Agent System</description>
     <name>CHY Agents</name>
     <url>https://github.com/yuruizhi/chy-agents</url>
 
@@ -40,13 +40,35 @@
     </properties>
 
     <modules>
-        <module>chy-agents-common</module>
+        <!-- Core and Common -->
         <module>chy-agents-core</module>
+        <module>chy-agents-common</module>
+        
+        <!-- Memory and Function -->
+        <module>chy-agents-memory</module>
+        <module>chy-agents-function</module>
+        
+        <!-- Chat and RAG -->
         <module>chy-agents-chat</module>
         <module>chy-agents-rag</module>
+        
+        <!-- Multimodal -->
+        <module>chy-agents-multimodal</module>
         <module>chy-agents-image</module>
+        
+        <!-- Model Integration -->
+        <module>chy-agents-model</module>
+        
+        <!-- Storage -->
+        <module>chy-agents-storage</module>
+        
+        <!-- Extensions -->
+        <module>chy-agents-plugin</module>
+        <module>chy-agents-workflow</module>
+        <module>chy-agents-security</module>
+        
+        <!-- API Layer -->
         <module>chy-agents-rest</module>
-        <module>chy-agents-alibaba</module>
     </modules>
 
     <dependencyManagement>
@@ -77,7 +99,7 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- 所有模块共享的依赖 -->
+        <!-- Shared dependencies for all modules -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>

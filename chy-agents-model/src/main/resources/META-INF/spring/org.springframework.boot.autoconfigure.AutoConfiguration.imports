@@ -1,0 +1,2 @@
+com.chy.agents.model.alibaba.config.AlibabaAutoConfiguration
+com.chy.agents.model.openai.config.OpenAiAutoConfiguration 

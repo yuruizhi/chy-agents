@@ -1,5 +1,6 @@
 package com.chy.agents.image.service;
 
+import com.chy.agents.image.model.Media;
 import org.springframework.ai.chat.ChatClient;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.messages.Message;
@@ -27,6 +28,13 @@ public class ImageAnalysisService {
         this.visionChatClient = visionChatClient;
     }
     
+    /**
+     * 分析图像
+     *
+     * @param imageData 图像数据
+     * @param prompt 分析提示
+     * @return 分析结果
+     */
     public String analyzeImage(byte[] imageData, String prompt) {
         String base64Image = Base64.getEncoder().encodeToString(imageData);
         Media imageMedia = new Media("image/jpeg", base64Image);

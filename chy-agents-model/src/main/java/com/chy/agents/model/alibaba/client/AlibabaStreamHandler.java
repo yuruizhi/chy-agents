@@ -1,4 +1,4 @@
-package com.chy.agents.openai.client;
+package com.chy.agents.model.alibaba.client;
 
 import com.chy.agents.core.chat.message.BaseMessage;
 import com.chy.agents.core.chat.message.Message;
@@ -16,10 +16,10 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
 /**
- * OpenAI stream handler for processing streaming responses
+ * 阿里云通义流式处理器
  */
 @Slf4j
-public class OpenAiStreamHandler {
+public class AlibabaStreamHandler {
     
     private final WebClient webClient;
     private final Map<String, String> headers;
@@ -29,26 +29,27 @@ public class OpenAiStreamHandler {
     private Consumer<Throwable> onError;
     private Runnable onComplete;
     
-    public OpenAiStreamHandler(String endpoint, Map<String, String> headers) {
+    public AlibabaStreamHandler(String endpoint, Map<String, String> headers) {
         this.webClient = WebClient.builder()
             .baseUrl(endpoint)
+            .defaultHeaders(httpHeaders -> headers.forEach(httpHeaders::add))
             .build();
         this.headers = headers;
         this.messages = new CopyOnWriteArrayList<>();
         this.currentMessage = new AtomicReference<>(new StringBuilder());
     }
     
-    public OpenAiStreamHandler onMessage(Consumer<Message> onMessage) {
+    public AlibabaStreamHandler onMessage(Consumer<Message> onMessage) {
         this.onMessage = onMessage;
         return this;
     }
     
-    public OpenAiStreamHandler onError(Consumer<Throwable> onError) {
+    public AlibabaStreamHandler onError(Consumer<Throwable> onError) {
         this.onError = onError;
         return this;
     }
     
-    public OpenAiStreamHandler onComplete(Runnable onComplete) {
+    public AlibabaStreamHandler onComplete(Runnable onComplete) {
         this.onComplete = onComplete;
         return this;
     }
@@ -58,7 +59,6 @@ public class OpenAiStreamHandler {
         currentMessage.set(new StringBuilder());
         
         webClient.post()
-            .headers(httpHeaders -> headers.forEach(httpHeaders::add))
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(requestBody)
             .retrieve()
@@ -82,26 +82,25 @@ public class OpenAiStreamHandler {
                 @SuppressWarnings("unchecked")
                 Map<String, Object> data = (Map<String, Object>) event.data();
                 
-                if (data.containsKey("choices")) {
-                    List<Map<String, Object>> choices = (List<Map<String, Object>>) data.get("choices");
-                    if (!choices.isEmpty()) {
-                        Map<String, Object> choice = choices.get(0);
-                        Map<String, Object> delta = (Map<String, Object>) choice.get("delta");
+                if (data.containsKey("output")) {
+                    Map<String, Object> output = (Map<String, Object>) data.get("output");
+                    String text = (String) output.get("text");
+                    
+                    // 处理增量内容
+                    if (text != null) {
+                        StringBuilder current = currentMessage.get();
+                        current.append(text);
                         
-                        if (delta != null && delta.containsKey("content")) {
-                            String content = (String) delta.get("content");
-                            if (content != null) {
-                                StringBuilder current = currentMessage.get();
-                                current.append(content);
-                                
-                                Message message = BaseMessage.assistantMessage(current.toString());
-                                messages.clear(); // Clear previous incremental messages
-                                messages.add(message);
-                                
-                                if (onMessage != null) {
-                                    onMessage.accept(message);
-                                }
-                            }
+                        Message message = BaseMessage.assistantMessage(current.toString());
+                        
+                        // 使用线程安全方式更新消息列表
+                        synchronized (messages) {
+                            messages.clear();
+                            messages.add(message);
+                        }
+                        
+                        if (onMessage != null) {
+                            onMessage.accept(message);
                         }
                     }
                 }

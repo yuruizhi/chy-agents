@@ -223,12 +223,12 @@ public class ImageService {
 version: '3.8'
 services:
   app:
-    image: chy-agents:latest
+        image: chy-agents:latest
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - ALIBABA_API_KEY=${ALIBABA_API_KEY}
-    ports:
+        ports:
       - "8080:8080"
     depends_on:
       - postgres
@@ -328,24 +328,5 @@ volumes:
 ---
 
 *CHY Agents - 让AI与业务场景无缝融合*
-
-## 更新日志
-
-### [1.0.1-SNAPSHOT]] - 2025-03-12
-#### 新增
-- 集成阿里云通义系列大模型（Qwen、Wanx）
-- 支持多模型动态路由选择机制
-- 新增企业级内容安全过滤组件
-
-#### 变更
-- 升级Spring Boot至3.3.4
-- 重构模型路由配置方式
-
-### [1.0.0-SNAPSHOT] - 2025-03-12
-#### 初始版本
-- 实现基础代理框架
-- 支持OpenAI模型集成
-
-完整更新内容请查看[更新日志详情](CHANGELOG.md)
 
 

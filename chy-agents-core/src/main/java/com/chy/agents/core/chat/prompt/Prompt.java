@@ -62,4 +62,44 @@ public class Prompt {
                 .userInput(input)
                 .build();
     }
+    
+    /**
+     * 转换为Spring AI兼容的消息列表
+     * 这个方法在项目集成Spring AI时使用
+     * 
+     * @return Spring AI消息列表
+     */
+    public List<org.springframework.ai.chat.messages.Message> toSpringAiMessages() {
+        List<org.springframework.ai.chat.messages.Message> messages = new ArrayList<>();
+        
+        // 添加系统提示
+        if (systemPrompt != null && !systemPrompt.isEmpty()) {
+            messages.add(new org.springframework.ai.chat.messages.SystemMessage(systemPrompt));
+        }
+        
+        // 添加历史消息
+        for (Message message : history) {
+            messages.add(convertToSpringAiMessage(message));
+        }
+        
+        // 添加用户输入
+        messages.add(new org.springframework.ai.chat.messages.UserMessage(userInput));
+        
+        return messages;
+    }
+    
+    /**
+     * 将内部消息转换为Spring AI消息
+     * 
+     * @param message 内部消息
+     * @return Spring AI消息
+     */
+    private org.springframework.ai.chat.messages.Message convertToSpringAiMessage(Message message) {
+        return switch (message.getRole()) {
+            case SYSTEM -> new org.springframework.ai.chat.messages.SystemMessage(message.getContent());
+            case USER -> new org.springframework.ai.chat.messages.UserMessage(message.getContent());
+            case ASSISTANT -> new org.springframework.ai.chat.messages.AssistantMessage(message.getContent());
+            case FUNCTION -> new org.springframework.ai.chat.messages.UserMessage(message.getContent()); // Spring AI暂无Function类型
+        };
+    }
 } 

@@ -2,36 +2,58 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
     <parent>
-        <artifactId>chy-agents</artifactId>
         <groupId>com.chy</groupId>
+        <artifactId>chy-agents</artifactId>
         <version>${revision}</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
     <artifactId>chy-agents-function</artifactId>
+    <packaging>jar</packaging>
     <name>CHY Agents - Function Calling</name>
     <description>Function calling module for tool registration, chaining and error handling</description>
 
     <dependencies>
+        <!-- Common Module -->
         <dependency>
             <groupId>com.chy</groupId>
             <artifactId>chy-agents-common</artifactId>
             <version>${project.version}</version>
         </dependency>
+        
+        <!-- Core Module -->
         <dependency>
             <groupId>com.chy</groupId>
             <artifactId>chy-agents-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+        
+        <!-- Spring AI -->
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-core</artifactId>
         </dependency>
+        
+        <!-- JSON Processing -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
+        
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        
+        <!-- Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
-
 </project> 

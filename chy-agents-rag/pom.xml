@@ -12,26 +12,62 @@
 
     <artifactId>chy-agents-rag</artifactId>
     <packaging>jar</packaging>
+    <name>CHY Agents - RAG</name>
+    <description>Retrieval Augmented Generation module for enhanced AI responses</description>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-azure-openai-spring-boot-starter</artifactId>
-        </dependency>
+        <!-- Common Module -->
         <dependency>
             <groupId>com.chy</groupId>
             <artifactId>chy-agents-common</artifactId>
             <version>${project.version}</version>
         </dependency>
+        
+        <!-- Core Module -->
         <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
-            <!-- 默认使用OpenAI实现 -->
+            <groupId>com.chy</groupId>
+            <artifactId>chy-agents-core</artifactId>
+            <version>${project.version}</version>
         </dependency>
+        
+        <!-- Storage for Vector DB -->
+        <dependency>
+            <groupId>com.chy</groupId>
+            <artifactId>chy-agents-storage</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <!-- Spring AI -->
         <dependency>
             <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-ollama-spring-boot-starter</artifactId>
-            <!-- 本地模型支持 -->
+            <artifactId>spring-ai-core</artifactId>
+        </dependency>
+        
+        <!-- Spring AI Embedding Support -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-openai</artifactId>
+            <!-- Default embedding implementation -->
+        </dependency>
+        
+        <!-- Alibaba Cloud AI Support -->
+        <dependency>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-starter</artifactId>
+        </dependency>
+        
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        
+        <!-- Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>

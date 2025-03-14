@@ -12,30 +12,90 @@
 
     <artifactId>chy-agents-rest</artifactId>
     <packaging>jar</packaging>
+    <name>CHY Agents - REST API</name>
+    <description>REST API for CHY Agents system exposing capabilities through web interfaces</description>
 
     <dependencies>
+        <!-- Spring Boot Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        
+        <!-- Spring Boot WebSocket for streaming -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
+        
+        <!-- OpenAPI Documentation -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        
+        <!-- Core Modules -->
+        <dependency>
+            <groupId>com.chy</groupId>
+            <artifactId>chy-agents-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
         <dependency>
             <groupId>com.chy</groupId>
             <artifactId>chy-agents-chat</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.chy</groupId>
-            <artifactId>chy-agents-image</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+        
         <dependency>
             <groupId>com.chy</groupId>
             <artifactId>chy-agents-rag</artifactId>
             <version>${project.version}</version>
         </dependency>
+        
+        <dependency>
+            <groupId>com.chy</groupId>
+            <artifactId>chy-agents-function</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <!-- Multimodal Support -->
+        <dependency>
+            <groupId>com.chy</groupId>
+            <artifactId>chy-agents-image</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        
+        <!-- Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project> 

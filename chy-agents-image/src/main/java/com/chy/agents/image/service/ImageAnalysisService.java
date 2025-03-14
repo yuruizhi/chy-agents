@@ -1,46 +1,55 @@
 package com.chy.agents.image.service;
 
-import com.chy.agents.image.model.Media;
 import org.springframework.ai.chat.ChatClient;
+import org.springframework.ai.chat.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.chat.messages.Media;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Base64;
+import java.util.Collections;
 
 /**
  * 图像分析服务
- *
- * @author YuRuizhi
- * @date 2025/3/12
+ * 使用OpenAI的GPT-4-Vision或其他支持视觉的大语言模型分析图像
  */
 @Service
 public class ImageAnalysisService {
 
-    // 支持视觉能力的ChatClient
-    private final ChatClient visionChatClient;
-    
+    private final ChatClient chatClient;
+
     @Autowired
-    public ImageAnalysisService(ChatClient visionChatClient) {
-        this.visionChatClient = visionChatClient;
+    public ImageAnalysisService(@Qualifier("openAiChatClient") ChatClient chatClient) {
+        this.chatClient = chatClient;
     }
-    
+
     /**
-     * 分析图像
+     * 分析图像内容
      *
-     * @param imageData 图像数据
-     * @param prompt 分析提示
-     * @return 分析结果
+     * @param imageData 图像的字节数据
+     * @param prompt    提示文本，即询问模型的问题
+     * @return 分析结果文本
      */
     public String analyzeImage(byte[] imageData, String prompt) {
-        String base64Image = Base64.getEncoder().encodeToString(imageData);
-        Media imageMedia = new Media("image/jpeg", base64Image);
-        UserMessage userMessage = new UserMessage(prompt, List.of(imageMedia));
-        
-        Prompt imagePrompt = new Prompt(List.of(userMessage));
-        return visionChatClient.call(imagePrompt).getResult().getOutput().getContent();
+        // 创建媒体对象，图像数据使用base64编码
+        String base64Data = Base64.getEncoder().encodeToString(imageData);
+        Media mediaData = new Media(Media.MediaType.PNG, base64Data);
+
+        // 创建用户消息，包含文本和图像
+        UserMessage userMessage = new UserMessage(
+            prompt, 
+            Collections.singletonList(mediaData)
+        );
+
+        // 创建提示并发送到聊天模型
+        Prompt promptRequest = new Prompt(Collections.singletonList((Message) userMessage));
+        ChatResponse response = chatClient.call(promptRequest);
+
+        // 返回模型生成的文本
+        return response.getResult().getOutput().getContent();
     }
 } 

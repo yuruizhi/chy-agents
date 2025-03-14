@@ -1,6 +1,6 @@
 package com.chy.agents.image.config;
 
-import org.springframework.ai.image.ImageClient;
+import org.springframework.ai.image.ImageModel;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 
@@ -11,10 +11,10 @@ import org.springframework.boot.actuate.health.HealthIndicator;
  */
 public class ImageServiceHealthIndicator implements HealthIndicator {
 
-    private final ImageClient imageClient;
+    private final ImageModel imageModel;
 
-    public ImageServiceHealthIndicator(ImageClient imageClient) {
-        this.imageClient = imageClient;
+    public ImageServiceHealthIndicator(ImageModel imageModel) {
+        this.imageModel = imageModel;
     }
 
     @Override
@@ -22,17 +22,17 @@ public class ImageServiceHealthIndicator implements HealthIndicator {
         try {
             // 尝试执行一个简单的健康检查操作
             // 对于稳定性和生产环境，可能需要实现一个更轻量级的健康检查方法
-            boolean isAvailable = imageClient != null;
+            boolean isAvailable = imageModel != null;
             
             if (isAvailable) {
                 return Health.up()
                         .withDetail("status", "可用")
-                        .withDetail("provider", imageClient.getClass().getSimpleName())
+                        .withDetail("provider", imageModel.getClass().getSimpleName())
                         .build();
             } else {
                 return Health.down()
                         .withDetail("status", "不可用")
-                        .withDetail("reason", "图像客户端为空")
+                        .withDetail("reason", "图像模型为空")
                         .build();
             }
         } catch (Exception e) {

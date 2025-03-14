@@ -1,8 +1,8 @@
 package com.chy.agents.image.config;
 
-import org.springframework.ai.image.ImageClient;
-import org.springframework.ai.chat.ChatClient;
-import org.springframework.ai.stability.StabilityAiImageClient;
+import org.springframework.ai.image.ImageModel;
+import org.springframework.ai.stabilityai.StabilityAiImageModel;
+import org.springframework.ai.stabilityai.api.StabilityAiApi;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -22,12 +22,13 @@ public class ImageServiceConfig {
      * 配置图像生成客户端，如果未特别指定使用的客户端，则使用StabilityAI
      */
     @Bean
-    @ConditionalOnMissingBean(ImageClient.class)
+    @ConditionalOnMissingBean(ImageModel.class)
     @ConditionalOnProperty(prefix = "chy.agents.image", name = "enabled", havingValue = "true", matchIfMissing = true)
-    public ImageClient defaultImageClient(ImageServiceProperties properties) {
+    public ImageModel defaultImageModel(ImageServiceProperties properties) {
         // 如果未特别配置，默认使用StabilityAI
         if (properties.getProvider().equalsIgnoreCase("stabilityai")) {
-            return new StabilityAiImageClient(properties.getApiKey());
+            StabilityAiApi stabilityAiApi = new StabilityAiApi(properties.getApiKey());
+            return new StabilityAiImageModel(stabilityAiApi);
         }
         
         // 可以在这里添加其他图像生成提供商的支持
@@ -38,7 +39,7 @@ public class ImageServiceConfig {
      * 图像服务健康检查
      */
     @Bean
-    public ImageServiceHealthIndicator imageServiceHealthIndicator(ImageClient imageClient) {
-        return new ImageServiceHealthIndicator(imageClient);
+    public ImageServiceHealthIndicator imageServiceHealthIndicator(ImageModel imageModel) {
+        return new ImageServiceHealthIndicator(imageModel);
     }
 } 

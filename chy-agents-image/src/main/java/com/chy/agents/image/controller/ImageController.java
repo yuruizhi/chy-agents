@@ -48,8 +48,20 @@ public class ImageController {
     @PostMapping("/generate")
     public ResponseEntity<Map<String, Object>> generateImage(@RequestBody ImageGenerationRequest request) {
         try {
-            int count = request.getCount() > 0 ? request.getCount() : properties.getNumberOfImages();
-            byte[] imageData = imageGenerationService.generateImageAsBytes(request.getPrompt());
+            // 应用请求参数或使用默认值
+            byte[] imageData = imageGenerationService.generateImageAsBytes(
+                request.getPrompt(),
+                request.getWidth() > 0 ? request.getWidth() : properties.getWidth(),
+                request.getHeight() > 0 ? request.getHeight() : properties.getHeight(),
+                properties.getModel()
+            );
+            
+            if (imageData.length == 0) {
+                Map<String, Object> error = new HashMap<>();
+                error.put("success", false);
+                error.put("error", "未能生成图像");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+            }
             
             Map<String, Object> response = new HashMap<>();
             response.put("success", true);
@@ -107,8 +119,8 @@ public class ImageController {
     public static class ImageGenerationRequest {
         private String prompt;
         private int count = 1;
-        private int width = 1024;
-        private int height = 1024;
+        private int width = 0;  // 0 means use default from properties
+        private int height = 0; // 0 means use default from properties
 
         // Getters and Setters
         public String getPrompt() {

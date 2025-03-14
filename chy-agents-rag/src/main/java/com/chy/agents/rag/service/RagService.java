@@ -1,65 +1,92 @@
 package com.chy.agents.rag.service;
 
+import com.chy.agents.rag.chunk.TextChunker;
+import com.chy.agents.rag.chunk.TextChunker.DocumentChunk;
+import com.chy.agents.rag.embeddings.EmbeddingService;
+import com.chy.agents.rag.vector.VectorStoreService;
 
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.messages.UserMessage;
-import org.springframework.ai.chat.model.ChatResponse;
-import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.ai.document.Document;
-import org.springframework.ai.vectorstore.SearchRequest;
-import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import org.springframework.ai.document.Document;
+import org.springframework.stereotype.Service;
 
 /**
- * RAG服务类
- *
- *
+ * RAG服务
+ * 提供检索增强生成的核心功能
  */
 @Service
 public class RagService {
 
-    private final ChatClient chatClient;
-    private final VectorStore vectorStore;
+    private final TextChunker textChunker;
+    private final EmbeddingService embeddingService;
+    private final VectorStoreService vectorStoreService;
 
-    @Autowired
-    public RagService(ChatClient chatClient, VectorStore vectorStore) {
-        this.chatClient = chatClient;
-        this.vectorStore = vectorStore;
+    /**
+     * 构造函数
+     * 
+     * @param textChunker 文本分块器
+     * @param embeddingService 嵌入服务
+     * @param vectorStoreService 向量存储服务
+     */
+    public RagService(
+            TextChunker textChunker,
+            EmbeddingService embeddingService,
+            VectorStoreService vectorStoreService) {
+        this.textChunker = textChunker;
+        this.embeddingService = embeddingService;
+        this.vectorStoreService = vectorStoreService;
     }
 
-    public String query(String userQuery) {
-        // 1. 从向量存储中检索相关文档
-        List<Document> relevantDocs = vectorStore.similaritySearch(
-            SearchRequest.builder().query(userQuery).topK(3).build()
-        );
-
-        // 2. 构建上下文
-        StringBuilder context = new StringBuilder();
-        for (Document doc : relevantDocs) {
-            context.append(doc.getContent()).append("\n\n");
+    /**
+     * 添加文档到知识库
+     * 
+     * @param content 文档内容
+     * @param title 文档标题
+     * @return 文档ID
+     */
+    public String addDocument(String content, String title) {
+        String documentId = UUID.randomUUID().toString();
+        
+        // 1. 分块
+        List<DocumentChunk> chunks = textChunker.chunkWithMetadata(content, documentId, title);
+        
+        // 2. 存储每个分块
+        for (int i = 0; i < chunks.size(); i++) {
+            DocumentChunk chunk = chunks.get(i);
+            Map<String, Object> metadata = new HashMap<>();
+            metadata.put("documentId", chunk.getDocumentId());
+            metadata.put("documentTitle", chunk.getDocumentTitle());
+            metadata.put("chunkIndex", chunk.getChunkIndex());
+            
+            String chunkId = documentId + "-" + i;
+            vectorStoreService.addDocument(chunk.getContent(), chunkId, metadata);
         }
-
-        // 3. 构建提示
-        String promptTemplate = "基于以下信息回答问题。如果无法从提供的信息中找到答案，请说明你不知道。\n\n" +
-                               "信息: " + context + "\n\n" +
-                               "问题: " + userQuery;
-
-        // 4. 调用LLM
-        UserMessage userMessage = new UserMessage(promptTemplate);
-        Prompt prompt = new Prompt(userMessage);
-        ChatResponse response = chatClient.call(prompt);
-        chatClient.callResponse(response);
-
-        return response.getResult().getOutput().getContent();
+        
+        return documentId;
     }
-
-    public void addDocumentToKnowledgeBase(String content, Map<String, Object> metadata) {
-        Document document = new Document(content, metadata);
-        vectorStore.add(List.of(document));
-
+    
+    /**
+     * 根据查询检索相关文档
+     * 
+     * @param query 查询文本
+     * @param limit 返回结果数量限制
+     * @return 相关文档列表
+     */
+    public List<Document> query(String query, int limit) {
+        return vectorStoreService.searchSimilar(query, limit);
+    }
+    
+    /**
+     * 删除文档
+     * 
+     * @param documentId 文档ID
+     */
+    public void deleteDocument(String documentId) {
+        // 实际应用中，应该先查询出所有与该文档相关的分块，然后批量删除
+        // 这里简化实现
+        vectorStoreService.deleteDocument(documentId);
     }
 }

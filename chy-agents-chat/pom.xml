@@ -14,14 +14,51 @@
     <packaging>jar</packaging>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
-        </dependency>
+        <!-- Common Module -->
         <dependency>
             <groupId>com.chy</groupId>
             <artifactId>chy-agents-common</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        
+        <!-- Core Module -->
+        <dependency>
+            <groupId>com.chy</groupId>
+            <artifactId>chy-agents-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <!-- Memory Module -->
+        <dependency>
+            <groupId>com.chy</groupId>
+            <artifactId>chy-agents-memory</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <!-- Spring AI -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-core</artifactId>
+        </dependency>
+        
+        <!-- Spring Boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        
+        <!-- Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project> 

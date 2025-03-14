@@ -1,14 +1,12 @@
 package com.chy.agents.image.model;
 
-import org.springframework.ai.chat.messages.Media;
-
 /**
  * 图像媒体内容类
  * 包含图像的媒体类型和内容
  *
  * @author YuRuizhi
  */
-public class Media implements org.springframework.ai.chat.messages.Media {
+public class Media {
     
     private final String type;
     private final String data;
@@ -24,12 +22,20 @@ public class Media implements org.springframework.ai.chat.messages.Media {
         this.data = data;
     }
     
-    @Override
+    /**
+     * 获取媒体类型
+     * 
+     * @return 媒体类型
+     */
     public String getType() {
         return type;
     }
     
-    @Override
+    /**
+     * 获取媒体数据
+     * 
+     * @return 媒体数据（Base64编码）
+     */
     public String getData() {
         return data;
     }

@@ -45,59 +45,59 @@ CHY Agents 是一个基于 Spring AI 构建的企业级智能代理系统，支�
 
 ```
 chy-agents/
-├── chy-agents-core           # 核心框架
-│   ├── agent/               # 代理定义
-│   ├── router/              # 模型路由
+├── chy-agents-core         # 核心框架
+│   ├── agent/              # 代理定义
+│   ├── router/             # 模型路由
 │   │   ├── moe/            # 专家混合
 │   │   ├── coe/            # 专家链
 │   │   └── lb/             # 负载均衡
-│   └── evaluation/          # 评估框架
-├── chy-agents-common        # 公共组件
+│   └── evaluation/         # 评估框架
+├── chy-agents-common       # 公共组件
 │   ├── config/             # 配置管理
 │   └── utils/              # 工具类
 ├── chy-agents-memory       # 记忆系统
 │   ├── short/              # 短期记忆
 │   ├── long/               # 长期记忆
 │   └── graph/              # 知识图谱
-├── chy-agents-function    # 函数调用
+├── chy-agents-function     # 函数调用
 │   ├── registry/           # 工具注册
 │   ├── chain/              # 调用链
 │   └── error/              # 错误处理
 ├── chy-agents-chat         # 对话模块
-│   ├── memory/             # 记忆管理
-│   └── streaming/          # 流式处理
+│   ├── core                # 记忆管理
+│   └── streaming           # 流式处理
 ├── chy-agents-rag          # 知识检索
 │   ├── chunk/              # 文档分块
 │   ├── vector/             # 向量存储
 │   └── search/             # 检索引擎
 ├── chy-agents-multimodal   # 多模态处理
-│   ├── image/              # 图像处理
-│   ├── audio/              # 音频处理
-│   ├── video/              # 视频处理
-│   └── fusion/             # 模态融合
+│   ├── chy-agents-multimodal-image    # 图像处理
+│   ├── chy-agents-multimodal-audio    # 音频处理
+│   ├── chy-agents-multimodal-video    # 视频处理
+│   └── chy-agents-multimodal-fusion   # 模态融合
 ├── chy-agents-model        # 模型集成
-│   ├── openai/             # OpenAI
-│   ├── alibaba/            # 阿里云
-│   ├── deepseek/           # DeepSeek
-│   ├── anthropic/          # Claude
-│   ├── google/             # Gemini
-│   └── private/            # 私有模型
+│   ├── chy-agents-model-openai     # OpenAI
+│   ├── chy-agents-model-alibaba    # 阿里云
+│   ├── chy-agents-model-deepseek   # DeepSeek
+│   ├── chy-agents-model-anthropic  # Claude
+│   ├── chy-agents-model-google     # Gemini
+│   └── chy-agents-model-private    # 私有模型
 ├── chy-agents-storage      # 存储模块
-│   ├── vector/             # 向量存储
-│   ├── relation/           # 关系存储
-│   └── cache/              # 缓存存储
-├── chy-agents-plugin      # 插件系统
+│   ├── chy-agents-storage-vector   # 向量存储
+│   ├── chy-agents-storage-relation # 关系存储
+│   └── chy-agents-storage-cache    # 缓存存储
+├── chy-agents-plugin       # 插件系统
 │   ├── sdk/                # 插件SDK
 │   ├── loader/             # 插件加载
 │   └── manager/            # 插件管理
-├── chy-agents-workflow    # 工作流引擎
+├── chy-agents-workflow     # 工作流引擎
 │   ├── definition/         # 流程定义
 │   ├── execution/          # 流程执行
 │   └── monitor/            # 流程监控
-├── chy-agents-security    # 安全模块
+├── chy-agents-security     # 安全模块
 │   ├── audit/              # 内容审核
 │   └── filter/             # 敏感词过滤
-└── chy-agents-rest        # API接口
+└── chy-agents-rest         # API接口
     ├── controller/         # 接口控制
     └── docs/               # API文档
 ```

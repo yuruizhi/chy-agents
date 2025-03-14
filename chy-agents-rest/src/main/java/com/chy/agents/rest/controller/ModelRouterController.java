@@ -5,7 +5,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 模型路由的REST控制器
@@ -58,5 +61,36 @@ public class ModelRouterController {
                 .user(prompt)
                 .call()
                 .content();
+    }
+    
+    /**
+     * 根据输入内容智能选择模型路由聊天请求
+     *
+     * @param prompt 用户提示内容
+     * @return 模型响应
+     */
+    @PostMapping("/smart-chat")
+    public String routeSmartChat(@RequestBody String prompt) {
+        ChatClient client = modelRouter.selectClientByInput(prompt);
+        return client.prompt()
+                .user(prompt)
+                .call()
+                .content();
+    }
+    
+    /**
+     * 获取所有可用的聊天客户端信息
+     *
+     * @return 客户端信息列表
+     */
+    @GetMapping("/clients")
+    public List<Map<String, Object>> getAllClients() {
+        return modelRouter.getAllClients().stream()
+                .map(client -> {
+                    Map<String, Object> clientInfo = new HashMap<>();
+                    clientInfo.put("type", client.getClass().getSimpleName());
+                    return clientInfo;
+                })
+                .collect(Collectors.toList());
     }
 } 

@@ -10,8 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>chy-agents-multimodal</artifactId>
-    <name>CHY Agents - Multimodal</name>
-    <description>Multimodal content processing for image, audio, video and fusion</description>
+    <name>CHY Agents - 多模态</name>
+    <description>用于图像、音频、视频和融合的多模态内容处理</description>
     <packaging>pom</packaging>
 
     <modules>

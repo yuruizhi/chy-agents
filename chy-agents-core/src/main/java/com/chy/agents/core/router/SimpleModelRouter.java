@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -74,5 +76,23 @@ public class SimpleModelRouter implements ModelRouter {
             result.put(key, providerInfo);
         });
         return result;
+    }
+    
+    @Override
+    public ChatClient selectClientByInput(String input) {
+        // 简单实现，直接返回默认客户端
+        // 更复杂的实现可以根据输入内容分析选择合适的模型
+        return selectDefaultClient();
+    }
+    
+    @Override
+    public List<ChatClient> getAllClients() {
+        return new ArrayList<>(clientMap.values());
+    }
+    
+    @Override
+    public void registerClient(String provider, ChatClient client) {
+        clientMap.put(provider.toLowerCase(), client);
+        log.info("已注册提供商: {}的客户端", provider);
     }
 }

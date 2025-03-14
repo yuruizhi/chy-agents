@@ -1,7 +1,10 @@
 package com.chy.agents.model.alibaba.config;
 
 import com.chy.agents.core.chat.ChatClient;
+import com.chy.agents.core.chat.adapter.SpringAiChatClientFactory;
 import com.chy.agents.model.alibaba.client.AlibabaChatClient;
+import com.alibaba.cloud.ai.dashscope.DashScopeChatClient;
+import com.alibaba.cloud.ai.dashscope.DashScopeChatOptions;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -21,12 +24,28 @@ import org.springframework.web.client.RestTemplate;
 public class AlibabaAutoConfiguration {
     
     @Bean
+    @ConditionalOnMissingBean(name = "springAiAlibabaChatClient")
+    public DashScopeChatClient springAiAlibabaChatClient(@Validated AlibabaConfig config) {
+        DashScopeChatOptions options = DashScopeChatOptions.builder()
+                .withModel(config.getModel())
+                .withApiKey(config.getApiKey())
+                .withTemperature(config.getTemperature())
+                .withTopP(config.getTopP())
+                .build();
+        
+        return new DashScopeChatClient(options);
+    }
+    
+    @Bean
     @ConditionalOnMissingBean(name = "alibabaChatClient")
-    public ChatClient alibabaChatClient(@Validated AlibabaConfig config) {
+    public ChatClient alibabaChatClient(DashScopeChatClient springAiAlibabaChatClient,
+                                       SpringAiChatClientFactory factory,
+                                       @Validated AlibabaConfig config) {
         try {
             // 在创建客户端之前验证配置
             config.validate();
-            return new AlibabaChatClient(config);
+            // 使用适配器工厂创建适配器
+            return factory.createAlibabaAdapter(springAiAlibabaChatClient, config.getModel());
         } catch (Exception e) {
             throw new IllegalStateException("Failed to initialize AlibabaChatClient", e);
         }

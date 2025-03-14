@@ -17,11 +17,13 @@
 
     <dependencies>
         <!-- Spring AI Alibaba -->
+        <!-- Temporarily commenting out this dependency due to availability issues in Maven repositories
         <dependency>
             <groupId>com.alibaba.cloud.ai</groupId>
             <artifactId>spring-ai-alibaba-dashscope</artifactId>
             <version>${spring-ai-alibaba.version}</version>
         </dependency>
+        -->
         <dependency>
             <groupId>com.alibaba.cloud.ai</groupId>
             <artifactId>spring-ai-alibaba-core</artifactId>

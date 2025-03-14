@@ -1,7 +1,10 @@
 package com.chy.agents.model.openai.config;
 
 import com.chy.agents.core.chat.ChatClient;
+import com.chy.agents.core.chat.adapter.SpringAiChatClientFactory;
 import com.chy.agents.model.openai.client.OpenAiChatClient;
+import org.springframework.ai.openai.OpenAiChatClient;
+import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -38,11 +41,27 @@ public class OpenAiAutoConfiguration {
     }
     
     @Bean
+    @ConditionalOnMissingBean(name = "springAiOpenAiChatClient")
+    public OpenAiChatClient springAiOpenAiChatClient(OpenAiApi openAiApi, @Validated OpenAiConfig config) {
+        OpenAiChatOptions options = OpenAiChatOptions.builder()
+                .withModel(config.getModel())
+                .withTemperature(config.getTemperature())
+                .withTopP(config.getTopP())
+                .withMaxTokens(config.getMaxTokens())
+                .build();
+        
+        return new OpenAiChatClient(openAiApi, options);
+    }
+    
+    @Bean
     @ConditionalOnMissingBean(name = "openAiChatClient")
-    public ChatClient openAiChatClient(OpenAiApi openAiApi, @Validated OpenAiConfig config) {
+    public ChatClient openAiChatClient(OpenAiChatClient springAiOpenAiChatClient, 
+                                      SpringAiChatClientFactory factory,
+                                      @Validated OpenAiConfig config) {
         try {
             config.validate();
-            return new OpenAiChatClient(openAiApi, config);
+            // 使用适配器工厂创建适配器
+            return factory.createOpenAiAdapter(springAiOpenAiChatClient, config.getModel());
         } catch (Exception e) {
             throw new IllegalStateException("Failed to initialize OpenAiChatClient", e);
         }

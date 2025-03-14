@@ -12,17 +12,17 @@
 
     <artifactId>chy-agents-multimodal-audio</artifactId>
     <packaging>jar</packaging>
-    <name>CHY Agents - Multimodal Audio</name>
-    <description>Audio transcription and speech generation services for CHY Agents</description>
+    <name>CHY Agents - 多模态音频</name>
+    <description>CHY Agents的音频转写和语音生成服务</description>
 
     <dependencies>
-        <!-- Spring AI Dependencies -->
+        <!-- Spring AI 依赖 -->
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-openai</artifactId>
         </dependency>
         
-        <!-- Spring Boot Dependencies -->
+        <!-- Spring Boot 依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

@@ -1,25 +1,25 @@
-# CHY Agents - Storage Cache
+# CHY Agents - 存储缓存
 
-This submodule provides caching mechanisms for CHY Agents, enabling high-performance data access and reducing load on primary data sources.
+该子模块为CHY Agents提供缓存机制，实现高性能数据访问并减轻主数据源的负载。
 
-## Supported Caching Solutions
+## 支持的缓存解决方案
 
-- **Redis**: In-memory data structure store for distributed caching
-- **Caffeine**: High-performance, near-optimal caching library for Java
-- **Spring Cache Abstraction**: Unified caching interface across different providers
+- **Redis**: 用于分布式缓存的内存数据结构存储
+- **Caffeine**: Java的高性能、近乎最优的缓存库
+- **Spring缓存抽象**: 跨不同提供商的统一缓存接口
 
-## Key Features
+## 核心特性
 
-- **Tiered Caching**: Combine local and distributed caching strategies
-- **TTL Management**: Configurable time-to-live settings for cached data
-- **Cache Eviction**: Intelligent eviction policies based on access patterns
-- **Concurrent Access**: Thread-safe operations for multi-user environments
-- **Cache Statistics**: Monitoring and metrics for cache performance
-- **Serialization Options**: Flexible serialization/deserialization mechanisms
+- **分层缓存**: 结合本地和分布式缓存策略
+- **TTL管理**: 可配置的缓存数据生存时间设置
+- **缓存淘汰**: 基于访问模式的智能淘汰策略
+- **并发访问**: 多用户环境下的线程安全操作
+- **缓存统计**: 缓存性能的监控和指标
+- **序列化选项**: 灵活的序列化/反序列化机制
 
-## Configuration
+## 配置
 
-### Redis Cache Example
+### Redis缓存示例
 
 ```java
 @Configuration
@@ -40,7 +40,7 @@ public class RedisCacheConfig {
 }
 ```
 
-### Caffeine Cache Example
+### Caffeine缓存示例
 
 ```java
 @Configuration
@@ -61,9 +61,9 @@ public class CaffeineCacheConfig {
 }
 ```
 
-## Usage
+## 使用示例
 
-### Caching Service Example
+### 缓存服务示例
 
 ```java
 @Service
@@ -71,7 +71,7 @@ public class EmbeddingCacheService {
     private final CacheManager cacheManager;
     private final EmbeddingClient embeddingClient;
     
-    // Cache name constants
+    // 缓存名称常量
     private static final String EMBEDDING_CACHE = "embeddings";
     
     public EmbeddingCacheService(CacheManager cacheManager, EmbeddingClient embeddingClient) {
@@ -81,7 +81,7 @@ public class EmbeddingCacheService {
     
     @Cacheable(value = EMBEDDING_CACHE, key = "#text")
     public List<Double> getEmbedding(String text) {
-        // This method will only be called if the result is not in the cache
+        // 只有当结果不在缓存中时才会调用此方法
         return embeddingClient.embed(text);
     }
     

@@ -1,28 +1,28 @@
-# CHY Agents - Storage Vector
+# CHY Agents - 存储向量
 
-This submodule provides vector database integrations for CHY Agents, enabling efficient semantic search and similarity matching capabilities.
+该子模块为CHY Agents提供向量数据库集成，实现高效的语义搜索和相似度匹配能力。
 
-## Supported Vector Databases
+## 支持的向量数据库
 
-- **Milvus**: High-performance vector database designed for similarity search
-- **PGVector**: PostgreSQL extension for vector similarity search
-- **Weaviate**: Vector search engine and knowledge graph
-- **Qdrant**: Vector similarity search engine with extended filtering capabilities
-- **Chroma**: Open-source embedding database designed for AI applications
-- **FAISS**: Facebook AI Similarity Search for efficient similarity search
+- **Milvus**: 为相似度搜索设计的高性能向量数据库
+- **PGVector**: PostgreSQL的向量相似度搜索扩展
+- **Weaviate**: 向量搜索引擎和知识图谱
+- **Qdrant**: 具有扩展过滤功能的向量相似度搜索引擎
+- **Chroma**: 为AI应用设计的开源嵌入式数据库
+- **FAISS**: Facebook AI相似度搜索，用于高效的相似度搜索
 
-## Key Features
+## 核心特性
 
-- **Abstracted Interface**: Common API for all vector database implementations
-- **Embedding Integration**: Seamless integration with embedding models
-- **Advanced Filtering**: Filter results based on metadata in addition to vector similarity
-- **Hybrid Search**: Combine vector similarity with keyword-based filtering
-- **Batch Operations**: Efficient batch insertion and querying capabilities
-- **Document Management**: Store, retrieve, and update documents with vector representations
+- **抽象接口**: 所有向量数据库实现的通用API
+- **嵌入集成**: 与嵌入模型的无缝集成
+- **高级过滤**: 除向量相似度外，还基于元数据过滤结果
+- **混合搜索**: 结合向量相似度与基于关键词的过滤
+- **批量操作**: 高效的批量插入和查询能力
+- **文档管理**: 存储、检索和更新具有向量表示的文档
 
-## Configuration
+## 配置
 
-### Milvus Example
+### Milvus示例
 
 ```java
 @Configuration
@@ -42,7 +42,7 @@ public class MilvusConfig {
 }
 ```
 
-## Usage
+## 使用示例
 
 ```java
 @Service

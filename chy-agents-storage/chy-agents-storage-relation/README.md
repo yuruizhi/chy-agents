@@ -1,26 +1,26 @@
-# CHY Agents - Storage Relation
+# CHY Agents - 存储关系
 
-This submodule provides relational database integrations for CHY Agents, enabling efficient structured data storage and retrieval.
+该子模块为CHY Agents提供关系型数据库集成，实现高效的结构化数据存储和检索。
 
-## Supported Relational Databases
+## 支持的关系型数据库
 
-- **PostgreSQL**: Advanced open-source relational database with extensive features
-- **MySQL**: Popular open-source relational database management system
-- **Neo4j**: Graph database platform for connected data relationships
-- **H2**: In-memory database for testing and development purposes
+- **PostgreSQL**: 具有丰富功能的高级开源关系型数据库
+- **MySQL**: 流行的开源关系型数据库管理系统
+- **Neo4j**: 面向关联数据关系的图形数据库平台
+- **H2**: 用于测试和开发目的的内存数据库
 
-## Key Features
+## 核心特性
 
-- **Entity Management**: Streamlined entity definition and mapping
-- **Repository Pattern**: Interface-based data access abstraction
-- **Transaction Support**: ACID-compliant transaction management
-- **Relationship Modeling**: Define and navigate complex data relationships
-- **Query Optimization**: Efficient querying for high-performance applications
-- **Connection Pooling**: Optimized database connection management
+- **实体管理**: 简化的实体定义和映射
+- **存储库模式**: 基于接口的数据访问抽象
+- **事务支持**: 符合ACID的事务管理
+- **关系建模**: 定义和导航复杂的数据关系
+- **查询优化**: 高性能应用的高效查询
+- **连接池**: 优化的数据库连接管理
 
-## Configuration
+## 配置
 
-### PostgreSQL Example
+### PostgreSQL示例
 
 ```java
 @Configuration
@@ -43,9 +43,9 @@ public class PostgresqlConfig {
 }
 ```
 
-## Usage
+## 使用示例
 
-### JPA Repository Example
+### JPA仓库示例
 
 ```java
 @Entity

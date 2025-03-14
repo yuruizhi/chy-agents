@@ -44,26 +44,77 @@
         
         <dependency>
             <groupId>com.chy</groupId>
-            <artifactId>chy-agents-chat</artifactId>
+            <artifactId>chy-agents-common</artifactId>
             <version>${project.version}</version>
         </dependency>
         
+        <!-- Memory Module -->
         <dependency>
             <groupId>com.chy</groupId>
-            <artifactId>chy-agents-rag</artifactId>
+            <artifactId>chy-agents-memory</artifactId>
             <version>${project.version}</version>
         </dependency>
         
+        <!-- Function Module -->
         <dependency>
             <groupId>com.chy</groupId>
             <artifactId>chy-agents-function</artifactId>
             <version>${project.version}</version>
         </dependency>
         
+        <!-- Chat Module -->
+        <dependency>
+            <groupId>com.chy</groupId>
+            <artifactId>chy-agents-chat</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <!-- RAG Module -->
+        <dependency>
+            <groupId>com.chy</groupId>
+            <artifactId>chy-agents-rag</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <!-- Model Integration -->
+        <dependency>
+            <groupId>com.chy</groupId>
+            <artifactId>chy-agents-model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <!-- Storage Module -->
+        <dependency>
+            <groupId>com.chy</groupId>
+            <artifactId>chy-agents-storage</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
         <!-- Multimodal Support -->
         <dependency>
             <groupId>com.chy</groupId>
-            <artifactId>chy-agents-image</artifactId>
+            <artifactId>chy-agents-multimodal</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <!-- Plugin System -->
+        <dependency>
+            <groupId>com.chy</groupId>
+            <artifactId>chy-agents-plugin</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <!-- Workflow Engine -->
+        <dependency>
+            <groupId>com.chy</groupId>
+            <artifactId>chy-agents-workflow</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <!-- Security Module -->
+        <dependency>
+            <groupId>com.chy</groupId>
+            <artifactId>chy-agents-security</artifactId>
             <version>${project.version}</version>
         </dependency>
         
@@ -94,7 +145,15 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                    <mainClass>com.chy.agents.rest.ChyAgentsApplication</mainClass>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

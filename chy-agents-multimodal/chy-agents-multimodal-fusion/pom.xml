@@ -3,58 +3,55 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
     <parent>
         <groupId>com.chy</groupId>
-        <artifactId>chy-agents</artifactId>
+        <artifactId>chy-agents-multimodal</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>chy-agents-model</artifactId>
-    <packaging>pom</packaging>
-    <name>CHY Agents - Model Integration</name>
-    <description>Model integration module for different AI providers</description>
-
-    <modules>
-        <module>chy-agents-model-openai</module>
-        <module>chy-agents-model-alibaba</module>
-        <module>chy-agents-model-deepseek</module>
-        <module>chy-agents-model-anthropic</module>
-        <module>chy-agents-model-google</module>
-        <module>chy-agents-model-private</module>
-    </modules>
-
-    <properties>
-        <java.version>17</java.version>
-    </properties>
+    <artifactId>chy-agents-multimodal-fusion</artifactId>
+    <packaging>jar</packaging>
+    <name>CHY Agents - Multimodal Fusion</name>
+    <description>Cross-modal understanding and generation services for CHY Agents</description>
 
     <dependencies>
-        <!-- Common Module -->
+        <!-- Multimodal Modules -->
         <dependency>
             <groupId>com.chy</groupId>
-            <artifactId>chy-agents-common</artifactId>
+            <artifactId>chy-agents-multimodal-image</artifactId>
             <version>${project.version}</version>
         </dependency>
         
-        <!-- Core Module -->
         <dependency>
             <groupId>com.chy</groupId>
-            <artifactId>chy-agents-core</artifactId>
+            <artifactId>chy-agents-multimodal-audio</artifactId>
             <version>${project.version}</version>
         </dependency>
         
-        <!-- Spring AI Core -->
+        <dependency>
+            <groupId>com.chy</groupId>
+            <artifactId>chy-agents-multimodal-video</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <!-- Spring AI Dependencies -->
         <dependency>
             <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-core</artifactId>
+            <artifactId>spring-ai-openai</artifactId>
         </dependency>
         
-        <!-- Spring Boot WebFlux for streaming responses -->
+        <!-- Spring Boot Dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         
-        <!-- Configuration Processor -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>

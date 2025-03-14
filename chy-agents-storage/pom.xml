@@ -11,9 +11,15 @@
     </parent>
 
     <artifactId>chy-agents-storage</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <name>CHY Agents - Storage</name>
     <description>Storage module for vector, relation and cache data storage</description>
+
+    <modules>
+        <module>chy-agents-storage-vector</module>
+        <module>chy-agents-storage-relation</module>
+        <module>chy-agents-storage-cache</module>
+    </modules>
 
     <dependencies>
         <!-- Common Module -->

@@ -44,17 +44,17 @@
         <module>chy-agents-core</module>
         <module>chy-agents-common</module>
         
-        <!-- Memory and Function -->
+        <!-- Memory -->
         <module>chy-agents-memory</module>
+        
+        <!-- Function -->
         <module>chy-agents-function</module>
         
-        <!-- Chat and RAG -->
+        <!-- Chat -->
         <module>chy-agents-chat</module>
-        <module>chy-agents-rag</module>
         
-        <!-- Multimodal -->
-        <module>chy-agents-multimodal</module>
-        <module>chy-agents-image</module>
+        <!-- RAG -->
+        <module>chy-agents-rag</module>
         
         <!-- Model Integration -->
         <module>chy-agents-model</module>
@@ -62,12 +62,19 @@
         <!-- Storage -->
         <module>chy-agents-storage</module>
         
-        <!-- Extensions -->
+        <!-- Multimodal -->
+        <module>chy-agents-multimodal</module>
+        
+        <!-- Plugin -->
         <module>chy-agents-plugin</module>
+        
+        <!-- Workflow -->
         <module>chy-agents-workflow</module>
+        
+        <!-- Security -->
         <module>chy-agents-security</module>
         
-        <!-- API Layer -->
+        <!-- REST API -->
         <module>chy-agents-rest</module>
     </modules>
 
@@ -114,6 +121,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
     </dependencies>

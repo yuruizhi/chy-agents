@@ -24,10 +24,10 @@
         <maven.compiler.target>17</maven.compiler.target>
 
         <!-- Spring AI -->
-        <spring-ai.version>1.0.0-M5</spring-ai.version>
+        <spring-ai.version>1.0.0-M6</spring-ai.version>
 
         <!-- Spring AI Alibaba -->
-        <spring-ai-alibaba.version>1.0.0-M5.1</spring-ai-alibaba.version>
+        <spring-ai-alibaba.version>1.0.0-M6.1</spring-ai-alibaba.version>
 
         <!-- Spring Boot -->
         <spring-boot.version>3.2.0</spring-boot.version>
@@ -64,6 +64,7 @@
         
         <!-- Multimodal -->
         <module>chy-agents-multimodal</module>
+        <module>chy-agents-image</module>
         
         <!-- Plugin -->
         <module>chy-agents-plugin</module>
@@ -97,9 +98,38 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            
+            <!-- Spring AI Alibaba -->
             <dependency>
                 <groupId>com.alibaba.cloud.ai</groupId>
                 <artifactId>spring-ai-alibaba-starter</artifactId>
+                <version>${spring-ai-alibaba.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.alibaba.cloud.ai</groupId>
+                        <artifactId>spring-ai-alibaba-graph</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            
+            <!-- Spring AI Alibaba Core -->
+            <dependency>
+                <groupId>com.alibaba.cloud.ai</groupId>
+                <artifactId>spring-ai-alibaba-core</artifactId>
+                <version>${spring-ai-alibaba.version}</version>
+            </dependency>
+            
+            <!-- Spring AI Alibaba Dashscope -->
+            <dependency>
+                <groupId>com.alibaba.cloud.ai</groupId>
+                <artifactId>spring-ai-alibaba-dashscope</artifactId>
+                <version>${spring-ai-alibaba.version}</version>
+            </dependency>
+            
+            <!-- Spring AI Alibaba Dashscope Spring Boot Starter -->
+            <dependency>
+                <groupId>com.alibaba.cloud.ai</groupId>
+                <artifactId>spring-ai-alibaba-dashscope-spring-boot-starter</artifactId>
                 <version>${spring-ai-alibaba.version}</version>
             </dependency>
         </dependencies>
@@ -221,6 +251,26 @@
         <repository>
             <id>aliyun</id>
             <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>aliyun-spring</id>
+            <url>https://maven.aliyun.com/repository/spring</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-ai-alibaba</id>
+            <url>https://maven.pkg.github.com/alibaba/spring-ai-alibaba</url>
             <releases>
                 <enabled>true</enabled>
             </releases>

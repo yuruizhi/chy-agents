@@ -19,7 +19,20 @@
         <!-- Spring AI Alibaba -->
         <dependency>
             <groupId>com.alibaba.cloud.ai</groupId>
-            <artifactId>spring-ai-alibaba-starter</artifactId>
+            <artifactId>spring-ai-alibaba-dashscope</artifactId>
+            <version>${spring-ai-alibaba.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-core</artifactId>
+            <version>${spring-ai-alibaba.version}</version>
+        </dependency>
+        
+        <!-- Common Module -->
+        <dependency>
+            <groupId>com.chy</groupId>
+            <artifactId>chy-agents-common</artifactId>
+            <version>${project.version}</version>
         </dependency>
         
         <!-- Testing -->

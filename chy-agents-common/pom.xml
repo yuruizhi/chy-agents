@@ -12,6 +12,8 @@
 
     <artifactId>chy-agents-common</artifactId>
     <packaging>jar</packaging>
+    <name>CHY Agents Common</name>
+    <description>Common utilities and configurations for CHY Agents</description>
 
     <dependencies>
         <!-- Spring Boot Starter -->
@@ -36,6 +38,16 @@
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-openai</artifactId>
+        </dependency>
+        
+        <!-- Spring AI Alibaba -->
+        <dependency>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-dashscope</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-core</artifactId>
         </dependency>
         
         <!-- Spring Boot Test -->

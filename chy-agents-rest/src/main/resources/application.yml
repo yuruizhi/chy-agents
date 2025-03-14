@@ -1,17 +1,21 @@
+server:
+  port: 8080
+
 spring:
   application:
-    name: chy-agents-rest
-  datasource:
-    url: jdbc:postgresql://localhost:5432/aiagents
-    username: postgres
-    password: postgres
-    driver-class-name: org.postgresql.Driver
+    name: chy-agents
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:your-openai-api-key}
+      chat-model: gpt-4
+      embedding-model: text-embedding-3-small
+    alibaba:
+      dashscope:
+        api-key: ${ALIBABA_API_KEY:your-alibaba-api-key}
+        model: qwen-max
 
-openai:
-  api-key: ${OPENAI_API_KEY}
-  chat-model: gpt-4
-  embedding-model: text-embedding-3-small
-  temperature: 0.7
-
-server:
-  port: 8080 
+logging:
+  level:
+    root: INFO
+    com.chy.agents: DEBUG
+    org.springframework.ai: INFO 

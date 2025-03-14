@@ -1,16 +1,17 @@
 package com.chy.agents.rest.controller;
 
-import com.chy.agents.chat.service.ChatService;
-import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.ai.chat.ChatClient;
+import org.springframework.ai.chat.ChatResponse;
 import org.springframework.ai.chat.messages.Message;
+import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.chat.prompt.Prompt;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 
 /**
  * 聊天控制器。
@@ -22,24 +23,30 @@ import java.util.Map;
 @RequestMapping("/api/chat")
 public class ChatController {
 
-    @Resource
-    private ChatService chatService;
+    @Autowired
+    private ChatClient chatClient;
 
     @PostMapping
-    public Map<String, String> chat(@RequestBody Map<String, Object> request) {
-        String userInput = (String) request.get("message");
-        List<Message> chatHistory = (List<Message>) request.getOrDefault("history", new ArrayList<>());
+    public Map<String, String> chat(@RequestBody Map<String, String> request) {
+        String userInput = request.get("message");
         
-        String response = chatService.chat(userInput, chatHistory);
+        UserMessage userMessage = new UserMessage(userInput);
+        Prompt prompt = new Prompt(userMessage);
         
-        return Map.of("response", response);
+        ChatResponse response = chatClient.call(prompt);
+        String content = response.getResult().getOutput().getContent();
+        
+        return Map.of("response", content);
     }
 
-    @GetMapping("/stream")
-    public Map<String, Flux<String>> streamChat(@RequestBody Map<String, Object> request) {
-        String userInput = (String) request.get("message");
-        List<Message> chatHistory = (List<Message>) request.getOrDefault("history", new ArrayList<>());
-        Flux<String> resp = chatService.streamChat(userInput, chatHistory);
-        return Map.of("response", resp);
+    @PostMapping("/stream")
+    public Flux<Map<String, String>> streamChat(@RequestBody Map<String, String> request) {
+        String userInput = request.get("message");
+        
+        UserMessage userMessage = new UserMessage(userInput);
+        Prompt prompt = new Prompt(userMessage);
+        
+        return chatClient.stream(prompt)
+                .map(response -> Map.of("response", response.getResult().getOutput().getContent()));
     }
 } 

@@ -12,7 +12,7 @@ import java.util.Map;
  */
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "chy.agents.model")
+@ConfigurationProperties(prefix = "spring.ai")
 public class ModelConfig {
     
     /**
@@ -41,9 +41,87 @@ public class ModelConfig {
     private float temperature = 0.7f;
     
     /**
+     * OpenAI配置
+     */
+    private OpenAiConfig openai;
+    
+    /**
+     * 阿里云配置
+     */
+    private AlibabaConfig alibaba;
+    
+    /**
      * 提供商配置
      */
     private Map<String, ProviderConfig> providers;
+    
+    /**
+     * OpenAI配置
+     */
+    @Data
+    public static class OpenAiConfig {
+        /**
+         * API密钥
+         */
+        private String apiKey;
+        
+        /**
+         * 聊天模型
+         */
+        private String chatModel = "gpt-4";
+        
+        /**
+         * 嵌入模型
+         */
+        private String embeddingModel = "text-embedding-3-small";
+        
+        /**
+         * 图像模型
+         */
+        private String imageModel = "dall-e-3";
+    }
+    
+    /**
+     * 阿里云配置
+     */
+    @Data
+    public static class AlibabaConfig {
+        /**
+         * 访问密钥ID
+         */
+        private String accessKeyId;
+        
+        /**
+         * 访问密钥密码
+         */
+        private String accessKeySecret;
+        
+        /**
+         * 区域
+         */
+        private String region = "cn-hangzhou";
+        
+        /**
+         * DashScope配置
+         */
+        private DashScopeConfig dashscope = new DashScopeConfig();
+        
+        /**
+         * DashScope配置
+         */
+        @Data
+        public static class DashScopeConfig {
+            /**
+             * API密钥
+             */
+            private String apiKey;
+            
+            /**
+             * 模型
+             */
+            private String model = "qwen-max";
+        }
+    }
     
     /**
      * 提供商配置

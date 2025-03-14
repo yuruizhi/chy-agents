@@ -64,7 +64,6 @@
         
         <!-- Multimodal -->
         <module>chy-agents-multimodal</module>
-        <module>chy-agents-image</module>
         
         <!-- Plugin -->
         <module>chy-agents-plugin</module>

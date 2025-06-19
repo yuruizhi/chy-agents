@@ -24,10 +24,10 @@
         <maven.compiler.target>17</maven.compiler.target>
 
         <!-- Spring AI -->
-        <spring-ai.version>1.0.0-M6</spring-ai.version>
+        <spring-ai.version>1.0.0</spring-ai.version>
 
         <!-- Spring AI Alibaba -->
-        <spring-ai-alibaba.version>1.0.0-M6.1</spring-ai-alibaba.version>
+        <spring-ai-alibaba.version>1.0.0.2</spring-ai-alibaba.version>
 
         <!-- Spring Boot -->
         <spring-boot.version>3.2.0</spring-boot.version>
@@ -100,23 +100,52 @@
                 <scope>import</scope>
             </dependency>
             
+            <!-- Spring AI OpenAI -->
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-openai</artifactId>
+                <version>${spring-ai.version}</version>
+            </dependency>
+            
+            <!-- Spring AI OpenAI Spring Boot Starter -->
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
+                <version>${spring-ai.version}</version>
+            </dependency>
+            
+            <!-- Spring AI Graph -->
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-graph</artifactId>
+                <version>${spring-ai.version}</version>
+            </dependency>
+            
             <!-- Spring AI Alibaba -->
             <dependency>
                 <groupId>com.alibaba.cloud.ai</groupId>
                 <artifactId>spring-ai-alibaba-starter</artifactId>
                 <version>${spring-ai-alibaba.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.alibaba.cloud.ai</groupId>
-                        <artifactId>spring-ai-alibaba-graph</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             
             <!-- Spring AI Alibaba Core -->
             <dependency>
                 <groupId>com.alibaba.cloud.ai</groupId>
                 <artifactId>spring-ai-alibaba-core</artifactId>
+                <version>${spring-ai-alibaba.version}</version>
+            </dependency>
+
+            <!-- Spring AI Alibaba Dashscope -->
+            <dependency>
+                <groupId>com.alibaba.cloud.ai</groupId>
+                <artifactId>spring-ai-alibaba-dashscope</artifactId>
+                <version>${spring-ai-alibaba.version}</version>
+            </dependency>
+            
+            <!-- Spring AI Alibaba Graph -->
+            <dependency>
+                <groupId>com.alibaba.cloud.ai</groupId>
+                <artifactId>spring-ai-alibaba-graph</artifactId>
                 <version>${spring-ai-alibaba.version}</version>
             </dependency>
         </dependencies>
@@ -252,6 +281,16 @@
 
     <repositories>
         <repository>
+            <id>spring-release</id>
+            <url>https://repo.spring.io/release</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
             <id>spring-milestones</id>
             <url>https://repo.spring.io/milestone</url>
             <snapshots>
@@ -281,13 +320,6 @@
             <releases>
                 <enabled>true</enabled>
             </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>spring-release</id>
-            <url>https://repo.spring.io/release</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>

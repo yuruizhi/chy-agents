@@ -5,8 +5,8 @@ CHY Agents 是一个基于 Spring AI 构建的企业级智能代理系统，支�
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![JDK](https://img.shields.io/badge/JDK-17%2B-green.svg)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.0-brightgreen.svg)](https://spring.io/projects/spring-boot)
-[![Spring AI](https://img.shields.io/badge/Spring%20AI-1.0.0--M5-orange.svg)](https://spring.io/projects/spring-ai)
-[![Spring AI Alibaba](https://img.shields.io/badge/Spring%20AI%20Alibaba-1.0.0--M5.1-blue.svg)](https://www.aliyun.com/)
+[![Spring AI](https://img.shields.io/badge/Spring%20AI-1.0.0-orange.svg)](https://spring.io/projects/spring-ai)
+[![Spring AI Alibaba](https://img.shields.io/badge/Spring%20AI%20Alibaba-1.0.0.2-blue.svg)](https://java2ai.com/docs/1.0.0.2/overview/)
 
 ## 核心特性
 
@@ -289,6 +289,15 @@ volumes:
 - 身份认证
 - 权限管理
 - 操作审计
+
+## 升级日志
+
+### 2026-06-19 升级
+- 升级 Spring AI 从 1.0.0-M6 到 1.0.0 正式版
+- 升级 Spring AI Alibaba 从 1.0.0-M6.1 到 1.0.0.2 正式版
+- 新增 Alibaba Graph 多智能体框架支持
+- 新增 chy-agents-model-alibaba-graph 模块
+- 完善依赖管理和仓库配置
 
 ## 开发计划
 

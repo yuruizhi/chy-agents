@@ -10,22 +10,29 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>chy-agents-model-openai</artifactId>
+    <artifactId>chy-agents-model-alibaba-graph</artifactId>
     <packaging>jar</packaging>
-    <name>CHY Agents - Model OpenAI</name>
-    <description>OpenAI models integration for CHY Agents</description>
+    <name>CHY Agents - Model Alibaba Graph</name>
+    <description>Alibaba Cloud AI Graph integration for CHY Agents</description>
 
     <dependencies>
-        <!-- Spring AI OpenAI -->
+        <!-- Spring AI Alibaba Graph -->
         <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-openai</artifactId>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-graph</artifactId>
         </dependency>
         
-        <!-- Spring AI OpenAI Spring Boot Starter (Optional) -->
+        <!-- Spring AI Graph -->
         <dependency>
             <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
+            <artifactId>spring-ai-graph</artifactId>
+        </dependency>
+        
+        <!-- Common Module -->
+        <dependency>
+            <groupId>com.chy</groupId>
+            <artifactId>chy-agents-common</artifactId>
+            <version>${project.version}</version>
         </dependency>
         
         <!-- Testing -->
@@ -34,12 +41,5 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>mockwebserver</artifactId>
-            <version>4.12.0</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
-</project> 
+</project>

@@ -17,6 +17,7 @@
     <modules>
         <module>chy-agents-model-openai</module>
         <module>chy-agents-model-alibaba</module>
+        <module>chy-agents-model-alibaba-graph</module>
         <module>chy-agents-model-deepseek</module>
         <module>chy-agents-model-anthropic</module>
         <module>chy-agents-model-google</module>

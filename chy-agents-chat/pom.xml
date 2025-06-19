@@ -12,6 +12,7 @@
 
     <artifactId>chy-agents-chat</artifactId>
     <packaging>jar</packaging>
+    <name>CHY Agents - Chat</name>
 
     <dependencies>
         <!-- Common Module -->

@@ -2,6 +2,15 @@
 
 遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.0.0/) 规范
 
+## [1.0.2-SNAPSHOT] - 2025-06-19
+### 变更
+- ⬆️ 升级 Spring AI 从 1.0.0-M6 到 1.0.0 正式版
+- ⬆️ 升级 Spring AI Alibaba 从 1.0.0-M6.1 到 1.0.0.2 正式版
+- ✨ 新增 Alibaba Graph 多智能体框架支持
+- 🏗️ 新增 chy-agents-model-alibaba-graph 模块
+- 🔧 完善依赖管理和仓库配置
+- 🛠️ 更新系统架构与文档说明
+
 ## [1.0.1-SNAPSHOT] - 2025-03-12
 ### 新增
 - ✨ 集成阿里云通义系列大模型（Qwen、Wanx）

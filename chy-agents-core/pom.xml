@@ -12,7 +12,7 @@
 
   <artifactId>chy-agents-core</artifactId>
   <packaging>jar</packaging>
-  <name>CHY Agents Core</name>
+  <name>CHY Agents - Core</name>
   <description>Core module containing agent definitions, model routing and evaluation framework</description>
 
   <dependencies>

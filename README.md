@@ -16,12 +16,14 @@ CHY Agents 是一个基于 Spring AI 构建的企业级智能代理系统，支�
 - MoE (Mixture of Experts) 路由策略
 - CoE (Chain of Experts) 协作机制
 - 智能负载均衡与故障转移
+- Spring AI集成路由与模型选择
 
 ### 2. 增强能力支持
 - Memory 系统：短期记忆、长期记忆
 - Function Calling：工具注册、调用链、错误处理
 - 对话上下文：会话管理、状态追踪
 - 知识图谱：关系存储、推理能力
+- Graph多智能体：工作流驱动的智能体协作
 
 ### 3. 多模态处理
 - 图像：DALL-E、SD、通义万相生成，GPT-4V/Qwen-VL 理解
@@ -47,10 +49,14 @@ CHY Agents 是一个基于 Spring AI 构建的企业级智能代理系统，支�
 chy-agents/
 ├── chy-agents-core         # 核心框架
 │   ├── agent/              # 代理定义
+│   │   └── spring/         # Spring AI增强代理
 │   ├── router/             # 模型路由
 │   │   ├── moe/            # 专家混合
 │   │   ├── coe/            # 专家链
+│   │   ├── spring/         # Spring AI路由器
 │   │   └── lb/             # 负载均衡
+│   ├── tool/               # 工具支持
+│   │   └── spring/         # Spring AI工具适配
 │   └── evaluation/         # 评估框架
 ├── chy-agents-common       # 公共组件
 │   ├── config/             # 配置管理
@@ -78,6 +84,11 @@ chy-agents/
 ├── chy-agents-model        # 模型集成
 │   ├── chy-agents-model-openai     # OpenAI
 │   ├── chy-agents-model-alibaba    # 阿里云
+│   │   └── client/                 # 阿里云模型客户端
+│   ├── chy-agents-model-alibaba-graph  # 阿里云Graph多智能体框架
+│   │   ├── config/                 # Graph配置
+│   │   ├── service/                # 多智能体服务
+│   │   └── examples/               # 示例应用
 │   ├── chy-agents-model-deepseek   # DeepSeek
 │   ├── chy-agents-model-anthropic  # Claude
 │   ├── chy-agents-model-google     # Gemini
@@ -128,6 +139,12 @@ chy-agents/
 - 报告生成
 - 见解发现
 
+### 5. 工作流自动化
+- 多智能体协作处理
+- 复杂任务分解
+- 状态图驱动
+- 决策支持系统
+
 ## 快速开始
 
 ### 环境要求
@@ -152,6 +169,16 @@ spring:
       dashscope:
         api-key: ${ALIBABA_API_KEY}
         model: qwen-max
+      graph:
+        enabled: true
+        sample-workflow: true
+
+chy:
+  agents:
+    spring-ai:
+      enabled: true
+    router:
+      type: spring
 ```
 
 ### 代码示例
@@ -212,6 +239,34 @@ public class ImageService {
         return imageClient.call(new ImagePrompt(prompt))
                          .getResult()
                          .getOutput();
+    }
+}
+```
+
+4. 多智能体系统：
+```java
+@Service
+public class MultiAgentService {
+    @Resource
+    private StateGraphFactory stateGraphFactory;
+    @Resource
+    private WorkflowExecutor workflowExecutor;
+    @Resource
+    private ChatClient researchClient;
+    @Resource
+    private ChatClient summaryClient;
+    
+    public CompletableFuture<String> researchTopic(String topic) {
+        // 创建研究助手多智能体系统
+        StateGraph researchGraph = new StateGraph("Research Assistant", stateGraphFactory)
+            .addNode("researcher", StateGraphFactory.llmNode(researchClient, "执行深度研究"))
+            .addNode("summarizer", StateGraphFactory.llmNode(summaryClient, "总结研究发现"))
+            .addEdge("researcher", "summarizer");
+            
+        // 执行工作流
+        Map<String, Object> context = Map.of("input", topic);
+        return workflowExecutor.execute(researchGraph.compile(), context)
+            .thenApply(result -> (String) result.get("output"));
     }
 }
 ```

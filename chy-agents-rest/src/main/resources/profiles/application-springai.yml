@@ -1,0 +1,63 @@
+spring:
+  ai:
+    # Spring AI通用配置
+    chat:
+      log-requests: true
+      
+    # OpenAI配置
+    openai:
+      api-key: ${OPENAI_API_KEY}
+      base-url: https://api.openai.com
+      model: gpt-3.5-turbo
+      options:
+        temperature: 0.7
+        max-tokens: 2048
+        top-p: 1.0
+        
+    # Spring AI Alibaba配置
+    alibaba:
+      enabled: true
+      api-key: ${ALIBABA_API_KEY}
+      model: qwen-max
+      options:
+        temperature: 0.7
+        max-tokens: 2048
+        top-p: 0.8
+        
+    # Spring AI Alibaba Graph配置
+    alibaba.graph:
+      enabled: true
+      sample-workflow: true
+      customer-support-demo: false
+      
+# CHY Agents配置
+chy:
+  agents:
+    # Spring AI集成配置
+    spring-ai:
+      enabled: true
+      enhance-clients: true
+      
+    # 路由器配置
+    router:
+      type: spring
+      
+    # 模型优先级配置
+    models:
+      default: openai
+      priority:
+        alibaba: 100
+        openai: 90
+        anthropic: 80
+        google: 70
+        
+    # 专家模型配置
+    expertise:
+      alibaba:
+        - code
+        - reasoning
+        - creative
+      openai:
+        - general
+        - translation
+        - summarization

@@ -13,7 +13,7 @@ import com.chy.agents.model.alibaba.graph.config.AlibabaGraphConfig;
  * Alibaba Graph 自动配置类
  * 
  * @author YuRuizhi
- * @date 2024/06/15
+ * @date 2025/06/19
  */
 @AutoConfiguration
 @ConditionalOnClass(StateGraph.class)
